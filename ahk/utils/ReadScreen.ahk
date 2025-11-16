@@ -5,6 +5,7 @@ pToken := Gdip_Startup()
 #include ../data_structure/Disposable.ahk
 #include ../data_structure/Types.ahk
 
+#include D2.ahk
 #include Debug.ahk
 
 
@@ -17,7 +18,7 @@ GetD2Bitmap := GetD2BitmapImpl
 GetD2BitmapImpl(save_to_file := "")
 {
     ; Get the active game window's handle
-    hwnd := WinGetID("Diablo II")
+    hwnd := D2Window.GetHwnd()
 
     ; Capture a screenshot of the window
     bitmap := Gdip_BitmapFromHWND(hwnd, 1)

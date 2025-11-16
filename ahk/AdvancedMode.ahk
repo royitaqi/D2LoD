@@ -173,10 +173,6 @@ TooglePages()
         Say("/tp " i, 100)
         ClickStashNext("Left", 100)
         i := i + 1
-
-        if (!IsD2Active()) {
-            return
-        }
     }
 }
 

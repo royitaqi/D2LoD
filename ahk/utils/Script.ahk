@@ -21,15 +21,6 @@ StopScript(msg := "", try_to_pause_and_notify := true) {
     throw "Should have reloaded"
 }
 
-StopScriptWhenD2BecomeInactive() {
-    Impl() {
-        if (!IsD2Active()) {
-            StopScript("Stopping script because D2 became inactive", false)
-        }
-    }
-    SetTimer(Impl, 1000)
-}
-
 IsMainScript(scriptname) {
     return A_ScriptName = scriptname
 }
@@ -79,5 +70,12 @@ RunForever(func) {
             ; Reload the game
             Assert(RetryCount(ReloadFromAnywhere, 3, 1000), "Cannot reload the game during a failure recovery", s_Fatal)
         }
+    }
+}
+
+RequireAdmin() {
+    if (!A_IsAdmin) {
+        MsgBox "This script requires to be run as admin"
+        ExitApp
     }
 }
