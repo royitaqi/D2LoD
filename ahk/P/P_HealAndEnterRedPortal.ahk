@@ -27,7 +27,7 @@ P_HealAndEnterRedPortal() {
     c_Deltas := [{ x: 0, y: 0 }, { x: 0, y: -25 }, { x: 0, y: 25 }]
     redness := []
     redness.Length := c_Portal_Positions.Length
-    bitmap := GetD2Bitmap()
+    bitmap := GetD2Bitmap(TempFileOverwrite("Screenshot_P_before_entering_red_portal.bmp"))
     for i, pp in c_Portal_Positions {
         redness[i] := 0
         for , delta in c_Deltas {
