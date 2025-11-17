@@ -12,6 +12,7 @@
 11/14 23:17:30-06:07:25 P_9     Runs: 1515  |   P: 6=>6-0   HP: 0   T: 0   R: 0     // On desktop
 11/14 23:17:08-06:09:07 P_9     Runs: 1430  |   P: 5=>5-0   HP: 1   T: 0   R: 0     // On laptop
 11/15 22:41:59-05:33:06 P_10    Runs: 1537  |   P: 6=>6-0   H: 0   T: 0   R: 0      // On desktop
+11/15 22:13:46-22:44:16 P_10 DEP Runs: 5039  |   P: 20=>20-0   H: 1   T: 0   R: 0    // On laptop
 
 
 OOM = Out of Memory
