@@ -34,21 +34,58 @@ IsMainScript(scriptname) {
     return A_ScriptName = scriptname
 }
 
-RetryCount(func, attempts, delayBetweenTries := 0) {
-    tried := 0
+; Calls func() once, then retries as long as should_retry() returns true.
+; Returns the last returned value or the Error that was thrown.
+Retry(func, should_retry, delay := 0) {
     loop {
         try {
-            func.Call()
-        } catch Error {
-            tried := tried + 1
-            if (tried = attempts) {
-                return false
-            }
-        } else {
+            ret := func.Call()
+        } catch Error as err {
+            ret := err
+        }
+        if (!should_retry(ret)) {
+            return ret
+        }
+        Sleep(delay)
+    }
+}
+
+; Retries a func() call until it can execute without throwing an Error, or until all attempts are done.
+RetryCount(func, attempts, delay := 0) {
+    ; The function will always be tried at least once
+    tries := 1
+    should_retry(ret) {
+        ; If the next try will exceed the attempts, don't retry
+        if (tries + 1 > attempts) {
+            return false
+        }
+        ; If it throws an Error, retry
+        if (IsError(ret)) {
+            tries := tries + 1
             return true
         }
-        Sleep(delayBetweenTries)
+        ; If it returns a normal value, don't retry
+        return false
     }
+    return Retry(func, should_retry, delay)
+}
+
+; Retries a func() call until it can execute without throwing an Error, or until timeout.
+RetryTimeout(func, timeout, delay := 0) {
+    start := A_TickCount
+    should_retry(ret) {
+        ; If the next try will exceed the timeout after the delay, don't retry
+        if (A_TickCount + delay > start + timeout) {
+            return false
+        }
+        ; If it throws an Error, retry
+        if (IsError(ret)) {
+            return true
+        }
+        ; If it returns a normal value, don't retry
+        return false
+    }
+    return Retry(func, should_retry, delay)
 }
 
 RunForever(func) {

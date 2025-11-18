@@ -20,7 +20,7 @@ IsArray(x) {
 }
 
 IsGeneralObject(x) {
-    return IsObject(x) && !IsArray(x) && !IsMap(x) && !IsFunction(x)
+    return IsObject(x) && !IsArray(x) && !IsMap(x) && !IsFunction(x) && !IsError(x)
 }
 
 IsMap(x) {
@@ -29,4 +29,8 @@ IsMap(x) {
 
 IsFunction(x) {
     return HasMethod(x)
+}
+
+IsError(x) {
+    return x is Error
 }

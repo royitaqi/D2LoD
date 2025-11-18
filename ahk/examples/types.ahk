@@ -13,8 +13,8 @@ TestTypes(testFunction) {
     MsgBox output
 }
 
-allValues := [true, 2, 3.14, "I'm a string", [1,2,3], {x:1,y:2}, Map(1,2,3,4), TestFunc]
-allNames := ["true", "2", "3.14", "`"I'm a string`"", "[1,2,3]", "{x:1,y:2}", "Map(1,2,3,4)", "TestFunc"]
+allValues := [true, 2, 3.14, "I'm a string", [1,2,3], {x:1,y:2}, Map(1,2,3,4), TestFunc, Error()]
+allNames := ["true", "2", "3.14", "`"I'm a string`"", "[1,2,3]", "{x:1,y:2}", "Map(1,2,3,4)", "TestFunc", "Error()"]
 
 TestTypes(IsBoolean)
 TestTypes(IsInteger)
@@ -24,3 +24,4 @@ TestTypes(IsArray)
 TestTypes(IsGeneralObject)
 TestTypes(IsMap)
 TestTypes(IsFunction)
+TestTypes(IsError)
