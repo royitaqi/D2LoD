@@ -8,10 +8,27 @@ Assert(expr, msg := "Assertion failed", log_level := s_Error, backtrack_level :=
         ; -1 makes AHK show the calling function instead of this function
         throw Error(msg, backtrack_level)
     }
+    return expr
 }
 
-AssertEqual(actual, expected, msg := "Values should equal", log_level := s_Error, backtrack_level := -2) {
-    Assert(actual = expected, msg " (expected " expected ", actually " actual ")", log_level, backtrack_level)
+AssertEqual(actual, expected, msg := "Values should equal", log_level := s_Error, backtrack_level := -1) {
+    Assert(actual = expected, msg " (expected " ToString(expected) ", actually " ToString(actual) ")", log_level, backtrack_level - 1)
+    return actual
+}
+
+AssertTrue(expr, msg := "Value should be true", log_level := s_Error, backtrack_level := -1) {
+    Assert(expr = true, msg " (expected true, actually " ToString(expr) ")", log_level, backtrack_level - 1)
+    return expr
+}
+
+AssertFalse(expr, msg := "Value should be false", log_level := s_Error, backtrack_level := -1) {
+    Assert(expr = false, msg " (expected false, actually " ToString(expr) ")", log_level, backtrack_level - 1)
+    return expr
+}
+
+AssertNoError(expr, msg := "Value should not be Error", log_level := s_Error, backtrack_level := -1) {
+    Assert(!IsError(expr), msg " (expected not Error, actually " ToString(expr) ")", log_level, backtrack_level - 1)
+    return expr
 }
 
 /* Test mouse position */

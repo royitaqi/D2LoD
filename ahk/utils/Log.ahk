@@ -17,6 +17,7 @@ s_Log_File := "log.txt"
      1 = Verbose    - Often used by business level scripts (e.g. LK, P)
      2 = Debug      - Often used by util scripts
      3 = Tedious    - Often used by util scripts for extreme details
+     9 = Never      - Never log
 */
 s_Log_Level := 0
 s_Fatal := -4
@@ -27,6 +28,7 @@ s_Info := 0
 s_Verbose := 1
 s_Debug := 2
 s_Tedious := 3
+s_Never := 9
 
 Say(text, delay := 100) {
     Send "{Enter}"
@@ -82,6 +84,7 @@ _GetLine(text, level) {
         case 1:     return "VERBOSE: " text
         case 2:     return "DEBUG: " text
         case 3:     return "TEDIOUS: " text
+        case 9:     return ""
         default:    Assert(false, "Level cannot be recognized: " level)
     }
 }

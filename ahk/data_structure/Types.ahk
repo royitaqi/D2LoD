@@ -4,7 +4,7 @@
 nil := ""
 
 IsBoolean(x) {
-    return x = 1 || x = 0
+    return x = true || x = false
 }
 
 ; IsInteger(x)
@@ -33,4 +33,18 @@ IsFunction(x) {
 
 IsError(x) {
     return x is Error
+}
+
+ToString(x) {
+    if (IsError(x)) {
+        return "[" x.what "] " x.message
+    } if (IsFunction(x)) {
+        if (x.Name) {
+            return x.Name
+        } else {
+            return "lambda"
+        }
+    } else {
+        return string(x)
+    }
 }

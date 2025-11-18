@@ -189,7 +189,7 @@ ReloadFromAnywhere() {
                 SaveAndQuit()
             case s_D2State_MainScreen:
                 SinglePlayerChar1Hell()
-                LogImportant("Reloaded into the game")
+                LogDebug("Reloaded into the game")
                 return
             case s_D2State_Unknown:
                 ; Could be in the splash screen, the character selection screen, or the difficulty selection screen.

@@ -46,13 +46,12 @@ P_HealAndEnterRedPortal() {
         }
     }
     
-    ; Click the red portal
+    ; Click the red portal where we think it is
     ClickOrMove2(c_Portal_Positions[idx].x, c_Portal_Positions[idx].y, "Left", , 1000)
 
     ; Detect that we have entered the Temple
-    loop {
+    hasEnteredPortal() {
         bitmap := GetD2Bitmap()
-
         /*
             The top left area should be black.
             > The color at X=100 Y=30 is 0x000000
@@ -63,9 +62,10 @@ P_HealAndEnterRedPortal() {
         if (GetPixelColorInRGB(bitmap, 100, 30) == 0x000000 &&
                 GetPixelColorInRGB(bitmap, 180, 30) == 0x1C1C1C) {
             ; We are in the temple!
-            break
+            return true
         }
-
-        Sleep(200)
+        return false
     }
+    ; The inner AssertTrue() is used to throw Error, so that RetryTimeout() can detect failure when the character hasn't entered the portal.
+    AssertTrue(RetryTimeout(() => AssertTrue(hasEnteredPortal(), , s_Never), 2000, 200), "Should have entered the Temple")
 }

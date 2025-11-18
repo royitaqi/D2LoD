@@ -37,15 +37,21 @@ IsMainScript(scriptname) {
 ; Calls func() once, then retries as long as should_retry() returns true.
 ; Returns the last returned value or the Error that was thrown.
 Retry(func, should_retry, delay := 0) {
+    log_prefix := "Retry([" ToString(func) "]): "
     loop {
         try {
+            LogDebug(log_prefix "Calling function [" ToString(func) "]")
             ret := func.Call()
+            LogDebug(log_prefix "Finished with ret: [" ToString(ret) "]")
         } catch Error as err {
             ret := err
+            LogDebug(log_prefix "Thrown error: [" ToString(ret) "]")
         }
         if (!should_retry(ret)) {
+            LogDebug(log_prefix "Shouldn't retry. Returning [" ToString(ret) "]")
             return ret
         }
+        LogDebug(log_prefix "Should retry. Sleeping for " delay)
         Sleep(delay)
     }
 }
@@ -54,7 +60,7 @@ Retry(func, should_retry, delay := 0) {
 RetryCount(func, attempts, delay := 0) {
     ; The function will always be tried at least once
     tries := 1
-    should_retry(ret) {
+    shouldRetry(ret) {
         ; If the next try will exceed the attempts, don't retry
         if (tries + 1 > attempts) {
             return false
@@ -67,13 +73,13 @@ RetryCount(func, attempts, delay := 0) {
         ; If it returns a normal value, don't retry
         return false
     }
-    return Retry(func, should_retry, delay)
+    return Retry(func, shouldRetry, delay)
 }
 
 ; Retries a func() call until it can execute without throwing an Error, or until timeout.
 RetryTimeout(func, timeout, delay := 0) {
     start := A_TickCount
-    should_retry(ret) {
+    shouldRetry(ret) {
         ; If the next try will exceed the timeout after the delay, don't retry
         if (A_TickCount + delay > start + timeout) {
             return false
@@ -85,7 +91,7 @@ RetryTimeout(func, timeout, delay := 0) {
         ; If it returns a normal value, don't retry
         return false
     }
-    return Retry(func, should_retry, delay)
+    return Retry(func, shouldRetry, delay)
 }
 
 RunForever(func) {
@@ -96,25 +102,26 @@ RunForever(func) {
         } catch Error as err {
             LogError("Error was thrown: [" err.what "] " err.message "`n`n" err.stack, ToFile)
 
-            ; Make sure D2 window is activated
-            activateD2() {
-                hwnd := WinGetID("Diablo II")
-                WinActivate { Hwnd: hwnd } ; https://www.autohotkey.com/docs/v2/misc/WinTitle.htm
-                LogImportant("Activated D2 window", ToFile)
-            }
-            Assert(RetryCount(activateD2, 3, 1000), "Cannot activate D2 during a failure recovery", s_Fatal)
-            
-            ; Play alarm sound, but don't wait for it because it's too long
             playSound() {
                 SoundPlay("sounds/WarSiren.aac", 0)
                 LogImportant("Played war siren sound", ToFile)
             }
-            if (!RetryCount(playSound, 3, 1000)) {
+            if (IsError(RetryCount(playSound, 3, 100))) {
                 LogWarning("Cannot play war siren sound during a failure recovery")
             }
-            
-            ; Reload the game
-            Assert(RetryCount(ReloadFromAnywhere, 3, 1000), "Cannot reload the game during a failure recovery", s_Fatal)
+
+            recoverFromFailure() {
+                LogImportant("Attempting failure recovery", ToFile)
+
+                hwnd := WinGetID("Diablo II")
+                WinActivate { Hwnd: hwnd } ; https://www.autohotkey.com/docs/v2/misc/WinTitle.htm
+                LogImportant("Activated D2 window", ToFile)
+
+                ReloadFromAnywhere()
+
+                LogImportant("Recovered from failure", ToFile)
+            }
+            AssertNoError(RetryCount(recoverFromFailure, 3, 1000), "Cannot recover from failure", s_Fatal)
         }
     }
 }
