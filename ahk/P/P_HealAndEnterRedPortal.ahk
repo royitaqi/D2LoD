@@ -13,7 +13,7 @@ P_HealAndEnterRedPortal() {
     
     ; Check that the hireling is alive
     if (!CheckHirelingAlive()) {
-        StopScript("Hireling is dead. Re-hire isn't implemented.", true)
+        StopScript("Hireling is dead. Re-hire isn't implemented.", true, true)
     }
     LogVerbose("Hireling is alive")
 

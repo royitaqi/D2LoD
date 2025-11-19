@@ -2,18 +2,22 @@
 #include Log.ahk
 
 
-StopScript(msg := "", try_to_pause_and_notify := true) {
+StopScript(msg := "", try_to_pause := true, try_to_notify := true) {
     ; Print/log the message is possible
     if (msg) {
         LogImportant(msg)
     }
 
-    ; Try to pause the game and play notification sound
-    if (try_to_pause_and_notify) {
-        LogVerbose("Trying to pause the game and play notification sound")
+    ; Try to pause the game
+    if (try_to_pause) {
+        LogVerbose("Trying to pause the game")
         PauseGameIfPossible()
+    }
 
+    ; Try to play notification sound
+    if (try_to_notify) {
         playSound() {
+            LogVerbose("Trying to play notification sound")
             SoundPlay("sounds/Notification.aac", 1)
         }
         if (IsError(RetryCount(playSound, 3, 100))) {

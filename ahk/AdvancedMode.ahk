@@ -36,7 +36,7 @@ Delete::
 {
     if (s_CurrentMode != 0)
     {
-        StopScript("Stopping script", false)
+        StopScript("Stopping script", true, false)
         return
     }
     Send "{Delete}"
