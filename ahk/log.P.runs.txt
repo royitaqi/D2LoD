@@ -13,13 +13,16 @@
 11/14 23:17:08-06:09:07 P_9     Runs: 1430  |   P: 5=>5-0   HP: 1   T: 0   R: 0     // On laptop
 11/15 22:41:59-05:33:06 P_10    Runs: 1537  |   P: 6=>6-0   H: 0   T: 0   R: 0      // On desktop
 11/15 22:13:46-22:44:16 P_10 DEP Runs: 5039  |   P: 20=>20-0   H: 1   T: 0   R: 0   // On laptop
-11/17 22:40:25-02:15:36 P_12 HID Runs: 795   |   P: 4=>4-0   H: 0   T: 0   R: 0     // on desktop
+11/17 22:40:25-02:15:36 P_12 HID Runs: 795   |   P: 4=>4-0   H: 0   T: 0   R: 0     // On desktop
+11/17 21:18:40+05:47:15 P_11 CIF DNS Runs: 6726  |   P: 23=>22-0   H: 1   T: 0   R: 1   // On laptop
 
 OOM = Out of Memory
 DEP = Didn't Enter Portal
 SGL = Still Grabbing Loot
 WNF = Window Not Found
 HID = Hireling Is Dead
+CIF = Cube Is Full
+DNS = Did Not Stop
 
 
 # Details
