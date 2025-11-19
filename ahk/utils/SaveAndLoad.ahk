@@ -170,9 +170,10 @@ GetD2State(d2bitmap := 0, clear_mouse := false) {
 }
 
 ReloadFromAnywhere() {
-    c_Max_Escape_Count := 3
-    escapeCount := 0
-    ; Use an infinite loop to guide the game into a loaded state
+    ; Use an infinite loop to guide the game into a loaded state,
+    ; unless too many ESC has been pressed, which means we are stuck.
+    c_Max_Escape_Count := 4
+    escape_count := 0
     loop {
         state := GetD2State(nil, true)
         LogDebug("ReloadFromAnywhere: state=" state, ToFile)
@@ -181,8 +182,8 @@ ReloadFromAnywhere() {
                 ; Game could have panels open, or be in the chat box.
                 ; Keep pressing ESC until the pause menu show up.
                 Press("{Escape}")
-                escapeCount := escapeCount + 1
-                Assert(escapeCount <= c_Max_Escape_Count, "Cannot press more then " c_Max_Escape_Count " ESC during reload")
+                escape_count := escape_count + 1
+                Assert(escape_count <= c_Max_Escape_Count, "Cannot press more then " c_Max_Escape_Count " ESC during reload")
             case s_D2State_GamePaused:
                 ; Cancel the pause menu just so that we can call SaveAndQuit().
                 Press("{Escape}")
@@ -195,8 +196,8 @@ ReloadFromAnywhere() {
                 ; Could be in the splash screen, the character selection screen, or the difficulty selection screen.
                 ; Keep pressing ESC until the main screen show up.
                 Press("{Escape}")
-                escapeCount := escapeCount + 1
-                Assert(escapeCount <= c_Max_Escape_Count, "Cannot press more then " c_Max_Escape_Count " ESC during reload")
+                escape_count := escape_count + 1
+                Assert(escape_count <= c_Max_Escape_Count, "Cannot press more then " c_Max_Escape_Count " ESC during reload")
         }
         Sleep 100
     }
@@ -204,6 +205,11 @@ ReloadFromAnywhere() {
 
 PauseGameIfPossible() {
     ClearMouse()
+
+    ; Use an infinite loop to guide the game into a loaded state,
+    ; unless too many ESC has been pressed, which means we are stuck.
+    c_Max_Escape_Count := 4
+    escape_count := 0
     loop {
         d2bitmap := GetD2Bitmap()
 
@@ -213,8 +219,11 @@ PauseGameIfPossible() {
         }
 
         ; Game isn't paused yet. Press ESC to exit one layer of interaction (e.g. inventory,
-        ; hireling, stats, skills, message box) or bring up pause menu.
+        ; hireling, stats, skills, message box, gold drop input) or bring up pause menu.
         Send "{Escape}"
+        escape_count := escape_count + 1
+        Assert(escape_count <= c_Max_Escape_Count, "Cannot press more then " c_Max_Escape_Count " ESC during pause")
+
         Sleep 50
     }
 }

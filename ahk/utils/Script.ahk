@@ -10,24 +10,21 @@ StopScript(msg := "", try_to_pause_and_notify := true) {
 
     ; Try to pause the game and play notification sound
     if (try_to_pause_and_notify) {
-        LogDebug("Trying to pause the game and play notification sound")
+        LogVerbose("Trying to pause the game and play notification sound")
         PauseGameIfPossible()
-        SoundPlay("sounds/Notification.aac", 1)
+
+        playSound() {
+            SoundPlay("sounds/Notification.aac", 1)
+        }
+        if (IsError(RetryCount(playSound, 3, 100))) {
+            LogWarning("Cannot play notification sound when stopping script")
+        }
     }
 
     ; Actually stop the script
     Reload
     Sleep 1000
     throw "Should have reloaded"
-}
-
-StopScriptWhenD2BecomeInactive() {
-    Impl() {
-        if (!IsD2Active()) {
-            StopScript("Stopping script because D2 became inactive", false)
-        }
-    }
-    SetTimer(Impl, 1000)
 }
 
 IsMainScript(scriptname) {
