@@ -9,6 +9,7 @@
     loot_level := DetectLootInMinimap(d2bitmap, c_Max_Loot_Level)
     loot_level_by_text := DetectLootByText(d2bitmap, c_Max_Loot_Level)
     if (loot_level_by_text > 0 && loot_level = 0) {
+        global s_P_Loot_Caught_by_Text
         s_P_Loot_Caught_by_Text := s_P_Loot_Caught_by_Text + 1
         SaveD2Bitmap(d2bitmap, TempFile("Screenshot_P_failed_to_detect_loot_run_" s_LK_Run_ID "_level_" loot_level "_caught_by_text_" loot_level_by_text ".bmp"))
     }
