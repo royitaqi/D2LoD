@@ -47,7 +47,7 @@ P_HealAndEnterRedPortal() {
     }
     
     ; Click the red portal where we think it is
-    ClickOrMove2(c_Portal_Positions[idx].x, c_Portal_Positions[idx].y, "Left", , 1000)
+    ClickOrMove2(c_Portal_Positions[idx].x, c_Portal_Positions[idx].y, "Left", , 1400)
 
     ; Detect that we have entered the Temple
     hasEnteredPortal() {
