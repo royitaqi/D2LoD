@@ -1,6 +1,7 @@
 ﻿#Requires AutoHotkey v2.0.0
 
 #include "../data_structure/Queue.ahk"
+#include "../utils/D2.ahk"
 #include "../utils/Health.ahk"
 #include "../utils/Log.ahk"
 #include "../utils/Loot.ahk"
@@ -31,6 +32,7 @@ P_Init() {
     LogLevelVerbose()
     ClearLogFile()
     SetPlayers(1)
+    ApplyBHCfg("../BH.cfg")
 }
 
 P_Main() {
