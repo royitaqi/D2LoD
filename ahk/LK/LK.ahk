@@ -30,6 +30,7 @@ LK_Main() {
 
     ClearLogFile()
     SetPlayers(7)
+    ApplyBHCfg("../BH(LK).cfg")
     
     s_LK_Tasks.Clear()
     s_LK_Tasks.Append(LK_BackToAct4AndRestart)
@@ -63,8 +64,8 @@ LK_RestartInAct3() {
 LK_SaveLoadAnnounce() {
     global s_LK_Potions_Used
 
-    SaveAndQuit(true)
-    SinglePlayerChar1Hell(true)
+    SaveAndQuit()
+    SinglePlayerChar1Hell()
     LK_Announce()
 
     if (CheckHealth([[30, 4], [70, 1]])) {
@@ -238,7 +239,7 @@ LK_TransferLootToCube() {
             transfered_items := transfered_items + 1
         }
     }
-    ForEachInventorySlot(callback, 2, 8, 4, 2)
+    ForEachInventorySlot(callback, 2, 8, 3, 2)
 
     return transfered_items
 }
