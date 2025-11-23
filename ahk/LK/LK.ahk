@@ -46,6 +46,12 @@ LK_Loop() {
     }
 }
 
+LK_EmergencyRestart() {
+    global s_LK_Tasks
+    s_LK_Tasks.Clear()
+    LK_RestartInAct3()
+}
+
 LK_BackToAct4AndRestart() {
     ClickOrMove 536, 278, "", s_Premove_Delay
     ClickOrMove 536, 278, "Left", 500
@@ -67,10 +73,6 @@ LK_SaveLoadAnnounce() {
     SaveAndQuit()
     SinglePlayerChar1Hell()
     LK_Announce()
-
-    if (CheckHealth([[30, 4], [70, 1]])) {
-        s_LK_Potions_Used := s_LK_Potions_Used + 1
-    }
 }
 
 LK_Announce() {
@@ -115,6 +117,11 @@ LK_Announce() {
         )
     }
     Log(msg)
+
+    if (CheckHealth(nil, [[70, 1]])) {
+        global s_LK_Potions_Used
+        s_LK_Potions_Used := s_LK_Potions_Used + 1
+    }
 }
 
 LK_FromAct4SpawnToLK() {
@@ -164,6 +171,12 @@ LK_DetectLoot(hut_name, gather_loot_func) {
     ; Sleep for a bit to allow loot to fall on the ground and be detected.
     Sleep(200)
     bitmap := GetD2Bitmap()
+    if (CheckHealth(nil, [[40, LK_EmergencyRestart], [70, 1]])) {
+        global s_LK_Potions_Used
+        s_LK_Potions_Used := s_LK_Potions_Used + 1
+        return
+    }
+
     loot_level := DetectLootInMinimap(bitmap)
     loot_level_by_text := DetectLootByText(bitmap)
     if (loot_level_by_text > 0 && loot_level = 0) {

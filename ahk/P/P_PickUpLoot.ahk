@@ -47,7 +47,7 @@
             break
         }
 
-        CheckHealth([[40, P_EmergencyRestart]])
+        CheckHealth(nil, [[40, P_EmergencyRestart]])
     }
     LogVerbose(loot_count " loot has been transfered to cube")
 

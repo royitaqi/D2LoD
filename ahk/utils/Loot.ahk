@@ -19,21 +19,21 @@ s_Pick_Delay := 50
     1 = purple only
     2 = purple and orange
 */
-DetectLootInMinimap(bitmap := 0, max_loot_level := 2) {
-    if (!bitmap) {
-        bitmap := GetD2Bitmap()
+DetectLootInMinimap(d2bitmap := 0, max_loot_level := 2) {
+    if (!d2bitmap) {
+        d2bitmap := GetD2Bitmap()
     }
 
     if (max_loot_level = 1) {
-        return DetectColorInMinimap(bitmap, s_Purple_Minimap, 0)
+        return DetectColorInMinimap(d2bitmap, s_Purple_Minimap, 0)
     } else {
-        return DetectColorInMinimap(bitmap, s_Purple_Minimap, 0, s_Orange_Minimap, 0)
+        return DetectColorInMinimap(d2bitmap, s_Purple_Minimap, 0, s_Orange_Minimap, 0)
     }
 }
 
-DetectLootByText(bitmap := 0, lines := 10, chars := 1, max_loot_level := 2) {
-    if (!bitmap) {
-        bitmap := GetD2Bitmap()
+DetectLootByText(d2bitmap := 0, lines := 10, chars := 1, max_loot_level := 2) {
+    if (!d2bitmap) {
+        d2bitmap := GetD2Bitmap()
     }
 
     x1 := 16
@@ -44,9 +44,9 @@ DetectLootByText(bitmap := 0, lines := 10, chars := 1, max_loot_level := 2) {
     y2 := y1 + 9 + 15 * (lines - 1)
 
     if (max_loot_level = 1) {
-        return DetectPixelColorInRect2(bitmap, x1, y1, x2, y2, s_Purple_Text, 0)
+        return DetectPixelColorInRect2(d2bitmap, x1, y1, x2, y2, s_Purple_Text, 0)
     } else {
-        return DetectPixelColorInRect2(bitmap, x1, y1, x2, y2, s_Purple_Text, 0, s_Orange_Text, 0)
+        return DetectPixelColorInRect2(d2bitmap, x1, y1, x2, y2, s_Purple_Text, 0, s_Orange_Text, 0)
     }
 }
 
@@ -76,14 +76,14 @@ PickUpLootOnGround(max_loot_level := 2, walk_delay := 1000) {
     */
     c_X_Stride := 20
 
-    bitmap1 := GetD2Bitmap()
+    d2bitmap1 := GetD2Bitmap()
     Press("{Alt down}", 200)
-    bitmap2 := GetD2Bitmap()
+    d2bitmap2 := GetD2Bitmap()
 
     ; Find the top-left most pixel that has a loot color
     match := VerticalStridePattern(
         DetectColorCallback(
-            [[bitmap1, false], [bitmap2, true]],
+            [[d2bitmap1, false], [d2bitmap2, true]],
             s_Purple_Text, 0,
             color2, 0
         ),

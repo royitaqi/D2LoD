@@ -9,7 +9,11 @@
 
     Returns the index of the action that is taken (start from 1), or 0 if none is taken.
 */
-CheckHealth(strategy) {
+CheckHealth(d2bitmap, strategy) {
+    if (!d2bitmap) {
+        d2bitmap := GetD2Bitmap()
+    }
+
     /*
         The cursor is at X=70 Y=510 - 100%  - The color at X=70 Y=510 is 0x380804
         The cursor is at X=70 Y=518 - 90%   - The color at X=70 Y=518 is 0x5C0000
@@ -36,8 +40,6 @@ CheckHealth(strategy) {
         20,  Map("Y", 574, "Color", 0x240000),
         10,  Map("Y", 582, "Color", 0x080404),
     )
-
-    bitmap := GetD2Bitmap()
     
     for i, pair in strategy {
         percentage := pair[1]
@@ -48,7 +50,7 @@ CheckHealth(strategy) {
         y := pixel["Y"]
         color := pixel["Color"]
 
-        is_health_below_percentage := (GetPixelColorInRGB(bitmap, 70, y) != color)
+        is_health_below_percentage := (GetPixelColorInRGB(d2bitmap, 70, y) != color)
 
         if (is_health_below_percentage) {
             msg := "Health is lower than " percentage "%."
