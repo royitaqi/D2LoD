@@ -18,7 +18,6 @@ CoordMode("Pixel", "Client")
 #include utils/Stash.ahk
 
 #include LK/LK.ahk
-#include LK/tests/test_lk.ahk
 
 #include P/P.ahk
 
