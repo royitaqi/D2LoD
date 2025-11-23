@@ -89,21 +89,32 @@ LK_Announce() {
     purple.Failed         := s_LK_Loot[1][1].Failed + s_LK_Loot[2][1].Failed + s_LK_Loot[3][1].Failed + s_LK_Loot[4][1].Failed
     orange.Failed         := s_LK_Loot[1][2].Failed + s_LK_Loot[2][2].Failed + s_LK_Loot[3][2].Failed + s_LK_Loot[4][2].Failed
 
-    Log("Runs: " s_LK_Run_ID
+    msg := (
+        "Runs: " s_LK_Run_ID
         "   |   P: " purple.Detected "=>" purple.LootedPlanned "/" purple.LootedAltClick "-" purple.Failed
             "   O: " orange.Detected "=>" orange.LootedPlanned "/" orange.LootedAltClick "-" orange.Failed
             "   HP: " s_LK_Potions_Used
             "   T: " s_LK_Loot_Detected_by_Text
-        "   |   Purple: "
-        s_LK_Loot[1][1].Detected "=>" s_LK_Loot[1][1].LootedPlanned "/" s_LK_Loot[1][1].LootedAltClick "-" s_LK_Loot[1][1].Failed " | "
-        s_LK_Loot[2][1].Detected "=>" s_LK_Loot[2][1].LootedPlanned "/" s_LK_Loot[2][1].LootedAltClick "-" s_LK_Loot[2][1].Failed " | "
-        s_LK_Loot[3][1].Detected "=>" s_LK_Loot[3][1].LootedPlanned "/" s_LK_Loot[3][1].LootedAltClick "-" s_LK_Loot[3][1].Failed " | "
-        s_LK_Loot[4][1].Detected "=>" s_LK_Loot[4][1].LootedPlanned "/" s_LK_Loot[4][1].LootedAltClick "-" s_LK_Loot[4][1].Failed
-        "   |   Orange: "
-        s_LK_Loot[1][2].Detected "=>" s_LK_Loot[1][2].LootedPlanned "/" s_LK_Loot[1][2].LootedAltClick "-" s_LK_Loot[1][2].Failed " | "
-        s_LK_Loot[2][2].Detected "=>" s_LK_Loot[2][2].LootedPlanned "/" s_LK_Loot[2][2].LootedAltClick "-" s_LK_Loot[2][2].Failed " | "
-        s_LK_Loot[3][2].Detected "=>" s_LK_Loot[3][2].LootedPlanned "/" s_LK_Loot[3][2].LootedAltClick "-" s_LK_Loot[3][2].Failed " | "
-        s_LK_Loot[4][2].Detected "=>" s_LK_Loot[4][2].LootedPlanned "/" s_LK_Loot[4][2].LootedAltClick "-" s_LK_Loot[4][2].Failed)
+    )
+    if (purple.Failed) {
+        msg := (
+            msg "   |   Purple: "
+            s_LK_Loot[1][1].Detected "=>" s_LK_Loot[1][1].LootedPlanned "/" s_LK_Loot[1][1].LootedAltClick "-" s_LK_Loot[1][1].Failed " | "
+            s_LK_Loot[2][1].Detected "=>" s_LK_Loot[2][1].LootedPlanned "/" s_LK_Loot[2][1].LootedAltClick "-" s_LK_Loot[2][1].Failed " | "
+            s_LK_Loot[3][1].Detected "=>" s_LK_Loot[3][1].LootedPlanned "/" s_LK_Loot[3][1].LootedAltClick "-" s_LK_Loot[3][1].Failed " | "
+            s_LK_Loot[4][1].Detected "=>" s_LK_Loot[4][1].LootedPlanned "/" s_LK_Loot[4][1].LootedAltClick "-" s_LK_Loot[4][1].Failed
+        )
+    }
+    if (orange.Failed) {
+        msg := (
+            msg "   |   Orange: "
+            s_LK_Loot[1][2].Detected "=>" s_LK_Loot[1][2].LootedPlanned "/" s_LK_Loot[1][2].LootedAltClick "-" s_LK_Loot[1][2].Failed " | "
+            s_LK_Loot[2][2].Detected "=>" s_LK_Loot[2][2].LootedPlanned "/" s_LK_Loot[2][2].LootedAltClick "-" s_LK_Loot[2][2].Failed " | "
+            s_LK_Loot[3][2].Detected "=>" s_LK_Loot[3][2].LootedPlanned "/" s_LK_Loot[3][2].LootedAltClick "-" s_LK_Loot[3][2].Failed " | "
+            s_LK_Loot[4][2].Detected "=>" s_LK_Loot[4][2].LootedPlanned "/" s_LK_Loot[4][2].LootedAltClick "-" s_LK_Loot[4][2].Failed
+        )
+    }
+    Log(msg)
 }
 
 LK_FromAct4SpawnToLK() {
