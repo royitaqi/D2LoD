@@ -5,25 +5,6 @@ Test_LK()
     Test_LK_Loot()
     ;Test_LK_Waypoint()
 }
-Test_LK_Loot()
-{
-    Test(file)
-    {
-        bitmap := Gdip_CreateBitmapFromFile("LK/tests/" file)
-        Say(file " loaded")
-
-        start := A_TickCount
-        confidence := LK_DetectOrangeText(bitmap)
-        time := A_TickCount - start
-        Say("Result: " confidence " (" time ")")
-    }
-
-    Test("Test_LK_Loot_Gul_Line2.jpg") ; failing in game ; pass in test
-    Test("Test_LK_Loot_Io_Line1.jpg") ; failing in game ; pass in test
-    Test("Test_LK_Loot_Io_Line2.jpg") ; failing in game ; pass in test
-    Test("Test_LK_Loot_Ko_Line1.jpg") ; failing in game ; pass in test
-    Test("Test_LK_Loot_Mal_Line1.jpg") ; failing in game ; pass in test
-}
 Test_LK_Waypoint()
 {
     Test(file)

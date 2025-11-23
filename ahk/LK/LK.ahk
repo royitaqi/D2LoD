@@ -163,8 +163,9 @@ LK_DetectLoot(hut_name, gather_loot_func) {
 
     ; Sleep for a bit to allow loot to fall on the ground and be detected.
     Sleep(200)
-    loot_level := DetectLootInMinimap()
-    loot_level_by_text := LK_DetectOrangeText()
+    bitmap := GetD2Bitmap()
+    loot_level := DetectLootInMinimap(bitmap)
+    loot_level_by_text := DetectLootByText(bitmap)
     if (loot_level_by_text > 0 && loot_level = 0) {
         s_LK_Loot_Detected_by_Text := s_LK_Loot_Detected_by_Text + 1
         GetD2Bitmap(TempFile("Screenshot_LK_failed_to_detect_loot_run_" s_LK_Run_ID "_hut_" hut_name "_level_" loot_level "_by_text_" loot_level_by_text ".bmp"))
@@ -263,12 +264,4 @@ LK_WaypointRecoveryIfNeeded() {
         s_LK_Tasks.Clear()
         s_LK_Tasks.Append(LK_RestartInAct3)
     }
-}
-
-LK_DetectOrangeText(bitmap := 0) {
-    if (!bitmap) {
-        bitmap := GetD2Bitmap()
-    }
-    confidence := DetectColoredText(bitmap, 10, 0xC48100, 0x20)
-    return confidence
 }
