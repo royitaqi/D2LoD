@@ -88,7 +88,7 @@ r32	1			100					2	hst	r32						useitem				horadric-high-rune			64	64												
 r33	1			100					2	hst	r33						useitem				horadric-high-rune			128	128																																																																															0
 ------ GET ------	0																																																																																																							0
 --- potions ---	0																																																																																																							0
-rvl	1			100	18	73	99		1	hst							useitem				horadric-rejuv			-3	-3																					rvl																																																										0
+rvl	1			100	18	73	100		1	hst							useitem				horadric-rejuv			-3	-3																					rvl																																																										0
 --- low runes ---	0																																																																																																							0
 r01	1			100	18	73	101		1	hst							useitem				horadric-low-rune			-1	-1																					r01																																																										0
 r02	1			100	18	73	102		1	hst							useitem				horadric-low-rune			-1	-1																					r02																																																										0
@@ -126,7 +126,20 @@ r31	1			100	18	73	131		1	hst							useitem				horadric-high-rune			-32	-32						
 r32	1			100	18	73	132		1	hst							useitem				horadric-high-rune			-64	-64																					r32																																																										0
 r33	1			100	18	73	133		1	hst							useitem				horadric-high-rune			-128	-128																					r33																																																										0
 ------ PROMOTE ------	0																																																																																																							0
-mid-rune => high-rune	1								2	hst	wms						useitem				horadric-mid-rune			-7776	-7776	horadric-high-rune			1	1																wms																																																										0
+mid-rune => high-rune	1			100					2	hst	wms						useitem				horadric-mid-rune			-7776	-7776	horadric-high-rune			1	1																wms																																																										0
+socket torso SO3 (2 low-runes + 1 perfect topaz)	1			100					5	tors,nor,nos	wms	yps,qty=3					useitem				sock			3	3																					wms																													gpy																													0
+socket torso SO4 (2 low-runes + 1 perfect topaz)	1			100					6	tors,nor,nos	wms	yps,qty=4					useitem				sock			4	4																					wms																													gpy																													0
+socket weapon SO4 (2 low-runes + 1 perfect amethyst)	1			100					6	weap,nor,nos	wms	yps,qty=4					useitem				sock			4	4																					wms																													gpv																													0
+socket weapon SO5 (2 low-runes + 1 perfect amethyst)	1			100					7	weap,nor,nos	wms	yps,qty=5					useitem				sock			5	5																					wms																													gpv																													0
+socket weapon SO6 (2 low-runes + 1 perfect amethyst)	1			100					8	weap,nor,nos	wms	yps,qty=6					useitem				sock			6	6																					wms																													gpv																													0
+socket helm SO2 (2 low-runes + 1 perfect sapphire)	1			100					4	helm,nor,nos	wms	yps,qty=2					useitem				sock			2	2																					wms																													gpb																													0
+socket helm SO3 (2 low-runes + 1 perfect sapphire)	1			100					5	helm,nor,nos	wms	yps,qty=3					useitem				sock			3	3																					wms																													gpb																													0
+socket shield SO3 (2 low-runes + 1 perfect ruby)	1			100					5	shld,nor,nos	wms	yps,qty=3					useitem				sock			3	3																					wms																													gpr																													0
+socket shield SO4 (2 low-runes + 1 perfect ruby)	1			100					6	shld,nor,nos	wms	yps,qty=4					useitem				sock			4	4																					wms																													gpr																													0
+pay socket cost torso	1			100					3	hst	wms	gpy					useitem				horadric-low-rune			-2	-2	horadric-topaz			-81	-81																wms																																																										0
+pay socket cost weapon	1			100					3	hst	wms	gpv					useitem				horadric-low-rune			-2	-2	horadric-amethyst			-81	-81																wms																																																										0
+pay socket cost helm	1			100					3	hst	wms	gpb					useitem				horadric-low-rune			-2	-2	horadric-sapphire			-81	-81																wms																																																										0
+pay socket cost shield	1			100					3	hst	wms	gpr					useitem				horadric-low-rune			-2	-2	horadric-ruby			-81	-81																wms																																																										0
 ~~~~~~~~~ HORADRIC STACK END ~~~~~~~~~	0																																																																																																							0
 Staff of Kings + Viper amulet -> Horadric Staff	1			0	28				2	msf	vip						hst																																																																																							0
 Khalim Flail + Khalim Heart + Khalim Eye + Khalim Brain -> Super Khalim Flail	1			0	28				4	qf1	qhr	qey	qbr				qf2																																																																																							0
