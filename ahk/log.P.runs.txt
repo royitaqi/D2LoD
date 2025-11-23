@@ -17,6 +17,7 @@
 11/17 21:18:40+05:47:15 P_11 CIF DNS Runs: 6726  |   P: 23=>22-0   H: 1   T: 0   R: 1   // On laptop
 11/19 07:57:23-16:12:11 P_13 CIF     Runs: 6589  |   P: 34=>34-0   H: 1   T: 0   R: 0   // On laptop
 11/20 21:53:54-11:09:18 P_14 DID     Runs: 2703  |   P: 8=>8-0   H: 2   T: 0   R: 0     // On laptop
+11/21 14:05:09-20:25:11 P_?  HID     Runs: 6125  |   P: 25=>25-0   H: 2   T: 0   R: 2   // On laptop. Restarts: DEP DEP
 
 OOM = Out of Memory
 DEP = Didn't Enter Portal
