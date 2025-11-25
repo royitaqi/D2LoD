@@ -188,6 +188,9 @@ LK_DetectLoot(hut_name, gather_loot_func) {
     }
     ; Loot detected
     Log("Loot level " loot_level " detected in hut " hut_name)
+    if (loot_level = 1) {
+        SaveD2Bitmap(d2bitmap, TempFile("Screenshot_LK_level_1_loot_detected.bmp"))
+    }
     s_LK_Loot[hut_name][loot_level].Detected := s_LK_Loot[hut_name][loot_level].Detected + 1
 
     ; Try to pick it up by the planned route.
