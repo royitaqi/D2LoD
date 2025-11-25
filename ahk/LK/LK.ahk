@@ -187,15 +187,15 @@ LK_DetectLoot(hut_name, gather_loot_func) {
 
     ; Sleep for a bit to allow loot to fall on the ground and be detected.
     Sleep(200)
-    bitmap := GetD2Bitmap()
+    d2bitmap := GetD2Bitmap()
     if (CheckHealth(nil, [[40, LK_EmergencyRestart], [70, 1]])) {
         global s_LK_Potions_Used
         s_LK_Potions_Used := s_LK_Potions_Used + 1
         return
     }
 
-    loot_level := DetectLootInMinimap(bitmap)
-    loot_level_by_text := DetectLootByText(bitmap)
+    loot_level := DetectLootInMinimap(d2bitmap)
+    loot_level_by_text := DetectLootByText(d2bitmap)
     if (loot_level_by_text > 0 && loot_level = 0) {
         s_LK_Loot_Detected_by_Text := s_LK_Loot_Detected_by_Text + 1
         GetD2Bitmap(TempFile("Screenshot_LK_failed_to_detect_loot_run_" s_LK_Run_ID "_hut_" hut_name "_level_" loot_level "_by_text_" loot_level_by_text ".bmp"))
