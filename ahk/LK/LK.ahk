@@ -28,9 +28,26 @@ s_LK_Loot_Detected_by_Text := 0
 LK_Main() {
     global s_LK_Tasks
 
+    LogLevelVerbose()
     ClearLogFile()
     SetPlayers(7)
-    ApplyBHCfg("../BH(LK).cfg")
+    ApplyFiles(
+        ["BH(LK).cfg", "BH.cfg"],
+        "BH_settings.cfg",
+        ["BaseMod(LK).ini", "BaseMod.ini"],
+        "PlugY.ini",
+        "data/global/excel/cubemain.txt",
+        "data/global/excel/ItemStatCost.txt",
+        "data/global/excel/misc.txt",
+        "data/global/excel/Missiles.txt",
+        "data/global/excel/Properties.txt",
+        "data/global/excel/skills.txt",
+        "data/global/items/invpk1.dc6",
+        "data/global/items/invpk2.dc6",
+        "data/global/items/invpk3.dc6",
+        "data/global/tiles/expansion/Town/townWest.ds1",
+        "data/local/LNG/ENG/patchstring.tbl",
+    )
     
     s_LK_Tasks.Clear()
     s_LK_Tasks.Append(LK_BackToAct4AndRestart)

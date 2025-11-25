@@ -67,6 +67,7 @@ ToScreen(text, level := 0) {
 }
 
 ClearLogFile() {
+    global s_Log_File
     FileOpen(s_Log_File, "w").Close()
 }
 
