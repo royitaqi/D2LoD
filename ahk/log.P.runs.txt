@@ -18,6 +18,7 @@
 11/19 07:57:23-16:12:11 P_13 CIF     Runs: 6589  |   P: 34=>34-0   H: 1   T: 0   R: 0   // On laptop
 11/20 21:53:54-11:09:18 P_14 DID     Runs: 2703  |   P: 8=>8-0   H: 2   T: 0   R: 0     // On laptop
 11/21 14:05:09-20:25:11 P_?  HID     Runs: 6125  |   P: 25=>25-0   H: 2   T: 0   R: 2   // On laptop. Restarts: DEP DEP
+11/23 07:13:48+17:15:51 P_16 CIF     Runs: 11487 |   P: 37=>36-1   H: 4   T: 0   R: 3   // On laptop. Restarts: FPL DEP TGL
 
 OOM = Out of Memory
 DEP = Didn't Enter Portal
@@ -27,6 +28,8 @@ HID = Hireling Is Dead
 CIF = Cube Is Full
 DNS = Did Not Stop
 DID = D2LoD Is Dead
+FPL = Failed to Pick up Loot
+TGL = Timed out while waiting for Game to be Loaded
 
 
 # Details
