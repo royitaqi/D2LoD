@@ -19,6 +19,7 @@
 11/20 21:53:54-11:09:18 P_14 DID     Runs: 2703  |   P: 8=>8-0   H: 2   T: 0   R: 0     // On laptop
 11/21 14:05:09-20:25:11 P_?  HID     Runs: 6125  |   P: 25=>25-0   H: 2   T: 0   R: 2   // On laptop. Restarts: DEP DEP
 11/23 07:13:48+17:15:51 P_16 CIF     Runs: 11487 |   P: 37=>36-1   H: 4   T: 0   R: 3   // On laptop. Restarts: FPL DEP TGL
+11/25 17:49:05+16:26:36 P_16 CIF     Runs: 9797  |   P: 30=>30-0   H: 5   T: 1   R: 0   // On laptop
 
 OOM = Out of Memory
 DEP = Didn't Enter Portal
