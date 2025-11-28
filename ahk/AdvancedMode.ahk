@@ -1,4 +1,7 @@
-﻿s_CurrentMode := 0
+﻿#include utils/Log.ahk
+
+
+s_CurrentMode := 0
 Numpad0::SetAdvancedMode(0)
 ^1::
 Numpad1::SetAdvancedMode(1)
@@ -12,8 +15,16 @@ Numpad4::SetAdvancedMode(4)
 Numpad5::SetAdvancedMode(5)
 SetAdvancedMode(mode)
 {
-    global
+    global s_CurrentMode
     s_CurrentMode := mode
+
+    global s_Log_Destination
+    if (s_CurrentMode = 1) {
+        s_Log_Destination := ToAll
+    } else {
+        s_Log_Destination := ToDefault
+    }
+
     AnnounceMode()
 }
 NumLock::
@@ -22,18 +33,20 @@ NumLock::
 }
 AnnounceMode()
 {
+    global s_CurrentMode
     switch s_CurrentMode
     {
-    case 0: Say "Advanced Mode = 0/OFF"
-    case 1: Say "Advanced Mode = 1/Utility"
-    case 2: Say "Advanced Mode = 2/Gamble"
-    case 3: Say "Advanced Mode = 3/LK"
-    case 4: Say "Advanced Mode = 4/Reroll"
-    case 5: Say "Advanced Mode = 5/Pindle"
+    case 0: Log("Advanced Mode = 0/OFF", ToAll)
+    case 1: Log("Advanced Mode = 1/Debug", ToAll)
+    case 2: Log("Advanced Mode = 2/Gamble", ToAll)
+    case 3: Log("Advanced Mode = 3/LK", ToAll)
+    case 4: Log("Advanced Mode = 4/Reroll", ToAll)
+    case 5: Log("Advanced Mode = 5/Pindle", ToAll)
     }
 }
 Delete::
 {
+    global s_CurrentMode
     if (s_CurrentMode != 0)
     {
         StopScript("Stopping script", true, false)
@@ -43,6 +56,7 @@ Delete::
 }
 F12::
 {
+    global s_CurrentMode
     if (s_CurrentMode != 0)
     {
         TestMousePosition()
@@ -52,6 +66,7 @@ F12::
 }
 F11::
 {
+    global s_CurrentMode
     if (s_CurrentMode != 0)
     {
         TestPixelColor()
@@ -61,6 +76,7 @@ F11::
 }
 F10::
 {
+    global s_CurrentMode
     switch s_CurrentMode
     {
     case 1:
@@ -72,21 +88,19 @@ F10::
 ; Temporary
 F9::
 {
+    global s_CurrentMode
     switch s_CurrentMode
     {
     case 1:
         LogLevelDebug()
-        test() {
-            Log("Testing")
-            throw Error("Test error")
-        }
-        RunForever(test)
+        Log(IsGameLoaded())
         return
     }
     Send "{F9}"
 }
 N::
 {
+    global s_CurrentMode
     switch s_CurrentMode
     {
     case 2:
@@ -100,6 +114,7 @@ N::
 }
 M::
 {
+    global s_CurrentMode
     switch s_CurrentMode
     {
     case 2:
@@ -113,6 +128,7 @@ M::
 }
 J::
 {
+    global s_CurrentMode
     switch s_CurrentMode
     {
     case 0:
@@ -132,6 +148,7 @@ J::
 }
 K::
 {
+    global s_CurrentMode
     switch s_CurrentMode
     {
     case 4:
@@ -142,6 +159,7 @@ K::
 }
 L::
 {
+    global s_CurrentMode
     switch s_CurrentMode
     {
     case 3:
@@ -156,7 +174,7 @@ L::
 
 
 ;;------------------------------------------------------------
-;; Advanced Mode: 1/Utility
+;; Advanced Mode: 1/Debug
 ;;------------------------------------------------------------
 
 /* Delete pages which has items (PlugY's /dp can only delete empty pages) */

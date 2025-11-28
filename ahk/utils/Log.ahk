@@ -30,6 +30,8 @@ s_Debug := 2
 s_Tedious := 3
 s_Never := 9
 
+s_Log_Destination := ToDefault
+
 Say(text, delay := 100) {
     Send "{Enter}"
     Sleep 50
@@ -66,6 +68,21 @@ ToScreen(text, level := 0) {
     Say(line)
 }
 
+ToDefault(text, level := 0) {
+    ; Always log to file
+    ToFile(text, level)
+
+    ; Only log to screen if it's at or above INFO level, and message can be typed into the game.
+    if (level <= 0 && IsD2Active() && IsGameLoaded() && !IsGamePaused()) {
+        ToScreen(text, level)
+    }
+}
+
+ToAll(text, level := 0) {
+    ToFile(text, level)
+    ToScreen(text, level)
+}
+
 ClearLogFile() {
     global s_Log_File
     FileOpen(s_Log_File, "w").Close()
@@ -97,12 +114,8 @@ Log(text, destination := nil, level := 0) {
         return
     }
 
-    ; Otherwise, log to file, and to screen if suitable
-    ToFile(text, level)
-    ; Only log to screen if it's at or above INFO level, and message can be typed into the game.
-    if (level <= 0 && IsD2Active() && IsGameLoaded() && !IsGamePaused()) {
-        ToScreen(text, level)
-    }
+    ; Otherwise, log to the default destination
+    s_Log_Destination.Call(text, level)
 }
 LogFatal(text, destination := nil) {
     Log(text, destination, -4)
