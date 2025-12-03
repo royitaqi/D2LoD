@@ -1,4 +1,7 @@
-﻿#include utils/Log.ahk
+﻿#include A/A.ahk
+#include LK/LK.ahk
+#include P/P.ahk
+#include utils/Log.ahk
 
 
 s_CurrentMode := 0
@@ -13,6 +16,8 @@ Numpad3::SetAdvancedMode(3)
 Numpad4::SetAdvancedMode(4)
 ^5::
 Numpad5::SetAdvancedMode(5)
+^6::
+Numpad6::SetAdvancedMode(6)
 SetAdvancedMode(mode)
 {
     global s_CurrentMode
@@ -42,6 +47,7 @@ AnnounceMode()
     case 3: Log("Advanced Mode = 3/LK", ToAll)
     case 4: Log("Advanced Mode = 4/Reroll", ToAll)
     case 5: Log("Advanced Mode = 5/Pindle", ToAll)
+    case 6: Log("Advanced Mode = 6/Andarial", ToAll)
     }
 }
 Delete::
@@ -167,6 +173,9 @@ L::
         return
     case 5:
         P_Main()
+        return
+    case 6:
+        A_Main()
         return
     }
     Send "L"
