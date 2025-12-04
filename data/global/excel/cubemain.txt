@@ -5,8 +5,8 @@ index += 1	1			100					2	hst	vps						useitem				dur			1	1																					v
 index += 5	1			100					3	hst	vps,qty=2						useitem				dur			5	5																					vps																													vps																													0
 index -= 1	1			100					2	hst	yps						useitem				dur			-1	-1																					yps																																																										0
 index -= 5	1			100					3	hst	yps,qty=2						useitem				dur			-5	-5																					yps																													yps																													0
-test	0			100					2	hst	hp5						useitem				horadric-rejuv			1426	1426	horadric-amethyst			543	543	horadric-skull			553	553	horadric-low-rune			1383	1383	horadric-mag-jewel			434	434	hp5																																																										0
-test 2	0			100					2	hst	mp5						useitem				horadric-emerald			464	464	horadric-sapphire			468	468	horadric-topaz			461	461	horadric-ruby			468	468	horadric-diamond			575	575	mp5																																																										0
+test	0			100					2	hst	hp5						useitem				horadric-essence			1	1																					hp5																																																										0
+test 2	0			100					2	hst	mp5						useitem				horadric-essence			-1	-1																					mp5																																																										0
 ------ PUT ------	0																																																																																																							0
 --- potions ---	0																																																																																																							0
 rvs	1			100					2	hst	rvs						useitem				horadric-rejuv			1	1																																																																															0
@@ -50,6 +50,11 @@ skz	1			100					2	hst	skz						useitem				horadric-skull			83	83																
 --- jewels ---	0																																																																																																							0
 jew,mag	1			100					2	hst	jew,mag						useitem				horadric-mag-jewel			1	1																																																																															0
 jew,rar	1			100					2	hst	jew,rar						useitem				horadric-rare-jewel			1	1																																																																															0
+--- essence ---	0																																																																																																							0
+tes	1			100					2	hst	tes						useitem				horadric-essence			1	1																																																																															0
+ceh	1			100					2	hst	ceh						useitem				horadric-essence			1	1																																																																															0
+bet	1			100					2	hst	bet						useitem				horadric-essence			1	1																																																																															0
+fed	1			100					2	hst	fed						useitem				horadric-essence			1	1																																																																															0
 --- low runes ---	0																																																																																																							0
 r01	1			100					2	hst	r01						useitem				horadric-low-rune			1	1																																																																															0
 r02	1			100					2	hst	r02						useitem				horadric-low-rune			1	1																																																																															0

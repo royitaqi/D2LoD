@@ -281,3 +281,4 @@ horadric-mid-rune	1			1	horadric_mid_rune																														0
 horadric-high-rune	1			1	horadric_high_rune																														0
 horadric-mag-jewel	1			1	horadric_mag_jewel																														0
 horadric-rare-jewel	1			1	horadric_rare_jewel																														0
+horadric-essence	1			1	horadric_essence																														0

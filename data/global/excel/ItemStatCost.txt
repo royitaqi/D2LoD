@@ -372,3 +372,4 @@ horadric_mid_rune	369			32													1024				32	0																	61	1	2	ModSt
 horadric_high_rune	370			32													1024				32	0																	60	1	2	ModStrHstHighRune	ModStrHstHighRune									0
 horadric_mag_jewel	371			32													1024				32	0																	51	1	2	ModStrHstMagJewel	ModStrHstMagJewel									0
 horadric_rare_jewel	372			32													1024				32	0																	50	1	2	ModStrHstRareJewel	ModStrHstRareJewel									0
+horadric_essence	373			32													1024				32	0																	40	1	2	ModStrHstEssence	ModStrHstEssence									0
