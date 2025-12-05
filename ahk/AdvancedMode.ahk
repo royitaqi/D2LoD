@@ -168,6 +168,10 @@ L::
     global s_CurrentMode
     switch s_CurrentMode
     {
+    case 1:
+        DumpLevelBitmap()
+        Log("Current level = " GetCurrentLevel())
+        return
     case 3:
         LK_Main()
         return
