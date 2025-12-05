@@ -2,6 +2,7 @@
 
 #include ../data_structure/Types.ahk
 
+
 TestFunc() {
 }
 
