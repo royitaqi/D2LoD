@@ -9,13 +9,13 @@
 
 
 Test_ReadScreen_GetD2Bitmap_MemoryLeak() {
+    SetTitleMatchMode(1)
     try {
         WinActivate("Diablo II")
     }
     catch Error {
         throw "This test requires Diablo II to be running. It's because the test need to capture screen from the game."
     }
-    DoNotMockD2Bitmaps()
 
     before := GlobalMemoryStatusEx()
     n := 2000
@@ -32,6 +32,6 @@ Test_ReadScreen_GetD2Bitmap_MemoryLeak() {
     mem_used := after.MemoryLoad - before.MemoryLoad
     Assert(mem_used <= 2, "This test shouldn't use more than 1% of memory (actually used " mem_used "%, from " before.MemoryLoad "% to " after.MemoryLoad "%)")
 }
-RunTest(Test_ReadScreen_GetD2Bitmap_MemoryLeak)
+DoNotMockD2Bitmaps(() => RunTest(Test_ReadScreen_GetD2Bitmap_MemoryLeak))
 
 ReportPass("Test_ReadScreen_GetD2Bitmap.ahk")

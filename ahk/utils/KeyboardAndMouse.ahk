@@ -1,3 +1,6 @@
+#include ../data_structure/Types.ahk
+
+
 s_Premove_Delay := 200
 s_Click_Delay := 100
 s_Press_Delay := 100
@@ -34,7 +37,7 @@ ClearMouseImpl(delay := 0, x := s_Max_X - 1, y := 1) {
 }
 
 ClickOrMove2 := ClickOrMove2Impl
-ClickOrMove2Impl(x, y, button := "", premove_delay := s_Premove_Delay, click_delay := s_Click_Delay) {
+ClickOrMove2Impl(x, y, button := nil, premove_delay := s_Premove_Delay, click_delay := s_Click_Delay) {
     MouseMove(x, y)
     if (premove_delay) {
         Sleep(premove_delay)
@@ -45,4 +48,11 @@ ClickOrMove2Impl(x, y, button := "", premove_delay := s_Premove_Delay, click_del
             Sleep(click_delay)
         }
     }
+}
+
+Hold(x, y, button, duration) {
+    MouseMove(x, y)
+    Click(x, y, button " Down")
+    Sleep(duration)
+    Click(x, y, button " Up")
 }

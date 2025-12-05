@@ -103,12 +103,13 @@ RunForever(func) {
         } catch Error as err {
             LogError("Error was thrown: [" err.what "] " err.message "`n`n" err.stack, ToFile)
 
+            c_sound := "Notification"
             playSound() {
-                SoundPlay("sounds/WarSiren.aac", 0)
-                LogImportant("Played war siren sound", ToFile)
+                ;SoundPlay("sounds/" c_sound ".aac", 0)
+                LogImportant("Played " c_sound " sound", ToFile)
             }
             if (IsError(RetryCount(playSound, 3, 100))) {
-                LogWarning("Cannot play war siren sound during a failure recovery")
+                LogWarning("Cannot play " c_sound " sound during a failure recovery")
             }
 
             recoverFromFailure() {

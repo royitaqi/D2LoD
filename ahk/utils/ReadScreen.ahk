@@ -10,7 +10,10 @@ pToken := Gdip_Startup()
 
 s_Max_X := 1068
 s_Max_Y := 600
-s_Hud_Y := 600
+s_Hud_Y := 550
+s_Level_X := 900
+s_Level_Y := 30
+
 s_Last_D2Bitmap := nil
 
 GetD2Bitmap := GetD2BitmapImpl
@@ -63,6 +66,11 @@ ARGB2RGB(argb, &r, &g, &b)
 RGB2Hex(r, g, b)
 {
     return Format("{:02X}{:02X}{:02X}", r, g, b)
+}
+
+ARGB2Hex(argb) {
+    ARGB2RGB(argb, &r, &g, &b)
+    return RGB2Hex(r, g, b)
 }
 
 GetPixelColorInRGB(d2bitmap, x, y)
@@ -237,6 +245,7 @@ DetectColorInMinimap(d2bitmap := 0, color1 := 0, variation1 := 0, color2 := 0, v
 
 
 /*
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     For all the patterns below:
     - Expect callback:
         ```
@@ -245,7 +254,73 @@ DetectColorInMinimap(d2bitmap := 0, color1 := 0, variation1 := 0, color2 := 0, v
         }
         ```
     - Returns the first non-nil value the callback returns. Otherwise, returns nil.
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 */
+
+/*
+    Search through a grid of spots by both x_stride and y_stride
+*/
+GridPattern(callback, x1 := 0, y1 := 0, x2 := s_Max_X, y2 := s_Max_Y, x_stride := 1, y_stride := 1, &match_x := 0, &match_y := 0) {
+    x := x1
+    while (x <= x2) {
+        y := y1
+        while (y <= y2) {
+            ret := callback(x, y)
+            if (ret != nil) {
+                match_x := x
+                match_y := y
+                return ret
+            }
+            y := y + y_stride
+        }
+        x := x + x_stride
+    }
+    return nil
+}
+
+/*
+    Two pass approach:
+    - Pass #1: Search through a grid of spots by both x_stride and y_stride.
+    - Pass #2: For any spot that is found in pass 1, search pixel-by-pixel in the grid.
+
+    Return any successful match returned by the pass2_callback.
+*/
+GridPatternTwoPass(pass1_callback, pass2_callback, x1 := 0, y1 := 0, x2 := s_Max_X, y2 := s_Max_Y, x_stride := 1, y_stride := 1, &match_x := 0, &match_y := 0) {
+    ; Pass #1
+    x := x1
+    while (x <= x2) {
+        y := y1
+        while (y <= y2) {
+            ret := pass1_callback(x, y)
+            if (ret != nil) {
+
+                ; Pass #2
+                xx := x - x_stride // 2
+                xx_max := xx + x_stride - 1
+                while (xx <= xx_max) {
+                    yy := y - y_stride // 2
+                    yy_max := yy + y_stride - 1
+                    while (yy <= yy_max) {
+                        retret := pass2_callback(xx, yy)
+                        if (retret != nil) {
+                            match_x := xx
+                            match_y := yy
+                            return retret
+                        }
+                        yy := yy + 1
+                    }
+                    xx := xx + 1
+                }
+                ; End of Pass #2
+                
+            }
+            y := y + y_stride
+        }
+        x := x + x_stride
+    }
+    return nil
+}
+
 
 VerticalStridePattern(callback, x_stride := 1, x1 := 0, y1 := 0, x2 := s_Max_X, y2 := s_Max_Y, &match_x := 0, &match_y := 0) {
     x := x1

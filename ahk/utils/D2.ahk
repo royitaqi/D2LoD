@@ -1,4 +1,5 @@
 #include ../data_structure/Types.ahk
+#include Script.ahk
 
 
 IsD2Active() {

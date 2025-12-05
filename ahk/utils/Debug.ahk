@@ -17,18 +17,34 @@ AssertEqual(actual, expected, msg := "Values should equal", log_level := s_Error
 }
 
 AssertTrue(expr, msg := "Value should be true", log_level := s_Error, backtrack_level := -1) {
-    Assert(expr = true, msg " (expected true, actually " ToString(expr) ")", log_level, backtrack_level - 1)
+    expr := not not expr
+    Assert(expr = true, msg " (expected 1, actually " ToString(expr) ")", log_level, backtrack_level - 1)
     return expr
 }
 
 AssertFalse(expr, msg := "Value should be false", log_level := s_Error, backtrack_level := -1) {
-    Assert(expr = false, msg " (expected false, actually " ToString(expr) ")", log_level, backtrack_level - 1)
+    expr := not not expr
+    Assert(expr = false, msg " (expected 0, actually " ToString(expr) ")", log_level, backtrack_level - 1)
     return expr
 }
 
 AssertNoError(expr, msg := "Value should not be Error", log_level := s_Error, backtrack_level := -1) {
     Assert(!IsError(expr), msg " (expected not Error, actually " ToString(expr) ")", log_level, backtrack_level - 1)
     return expr
+}
+
+AssertError(expr, expected_msg, msg := "Value should be Error", log_level := s_Error, backtrack_level := -1) {
+    AssertTrue(IsError(expr), msg " (expected Error, actually " ToString(expr) ")", log_level, backtrack_level - 1)
+    AssertEqual(expr.message, expected_msg, msg " (expected Error, actually " ToString(expr) ")", log_level, backtrack_level - 1)
+    return expr
+}
+
+CatchReturn(func) {
+    try {
+        return func.Call()
+    } catch Error as err {
+        return err
+    }
 }
 
 /* Test mouse position */
@@ -62,6 +78,33 @@ TakeScreenShot() {
     Log("Screenshot saved to " filename)
 }
 
+DumpLevelBitmap() {
+    d2bitmap1 := GetD2BitMap()
+
+    s := "`n"
+    y := 0
+    while (y <= s_Level_Y) {
+        s := s "        ["
+        x := s_Level_X
+        while (x <= s_Max_X) {
+            color := GetPixelColorInRGB(d2bitmap1, x, y)
+            if (color = 0x99895B) {
+                color := "0x99895B"
+            } else {
+                color := "0x000000"
+            }
+            if (x != s_Level_X) {
+                s := s ","
+            }
+            s := s color
+            x := x + 1
+        }
+        s := s "],`n"
+        y := y + 1
+    }
+    Log(s, ToFile)
+}
+
 CountDown(msg) {
     Log(msg)
     countdown := 3
@@ -79,4 +122,10 @@ TempFile(file) {
 
 TempFileOverwrite(file) {
     return "tmp/" file
+}
+
+TimeIt(func) {
+    start := A_TickCount
+    func.Call()
+    return A_TickCount - start
 }

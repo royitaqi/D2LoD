@@ -39,16 +39,18 @@ MockD2Bitmaps(files*) {
     }
 }
 
-DoNotMockD2Bitmaps() {
+DoNotMockD2Bitmaps(test) {
     global GetD2Bitmap
     GetD2Bitmap := GetD2BitmapImpl
+    test.Call()
+    GetD2Bitmap := MockedGetD2Bitmap
 }
 
 RunTest(test) {
     global s_Tests_Ran, s_Mocked_D2Bitmaps
 
-    s_Tests_Ran.Push(test.Name)
-    test.Call()
+    time := TimeIt(() => test.Call())
+    s_Tests_Ran.Push("[" time "] " test.Name)
 
     Assert(s_Mocked_D2Bitmaps.Length = 0, "Leftover bitmaps detected: " s_Mocked_D2Bitmaps.Length)
 }
