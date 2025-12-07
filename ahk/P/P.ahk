@@ -13,6 +13,10 @@
 #include "P_PickUpLoot.ahk"
 
 
+PEmptyLootData() {
+    return { Detected: 0, Looted: 0, Failed: 0 }
+}
+
 s_P_Tasks := nil
 s_P_Run_ID := nil
 s_P_Loot := nil
@@ -24,7 +28,7 @@ P_Init() {
     global s_P_Tasks, s_P_Run_ID, s_P_Loot, s_P_Loot_Caught_by_Text, s_P_Potions_Used, s_P_Restarts
     s_P_Tasks := Queue()
     s_P_Run_ID := -1
-    s_P_Loot := { Detected: 0, Looted: 0, Failed: 0 }
+    s_P_Loot := [PEmptyLootData(), PEmptyLootData()]
     s_P_Loot_Caught_by_Text := 0
     s_P_Potions_Used := 0
     s_P_Restarts := -1
@@ -95,14 +99,24 @@ P_EmergencyRestart() {
 }
 
 P_Announce() {
-    global s_P_Run_ID, s_P_Loot
+    global s_P_Run_ID, s_P_Loot, s_P_Potions_Used, s_P_Loot_Caught_by_Text, s_P_Restarts
 
     s_P_Run_ID := s_P_Run_ID + 1
 
-    Log("Runs: " s_P_Run_ID
-        "   |   P: " s_P_Loot.Detected "=>" s_P_Loot.Looted "-" s_P_Loot.Failed
+    msg := (
+        "Runs: " s_P_Run_ID
+        "   |   P: " s_P_Loot[1].Detected "=>" s_P_Loot[1].Looted "-" s_P_Loot[1].Failed
+    )
+    if (s_P_Loot[2].Detected) {
+        msg .= (
+            "   O: " s_P_Loot[2].Detected "=>" s_P_Loot[2].Looted "-" s_P_Loot[2].Failed
+        )
+    }
+    msg .= (
             "   H: " s_P_Potions_Used
             "   T: " s_P_Loot_Caught_by_Text
             "   R: " s_P_Restarts
     )
+
+    Log(msg)
 }

@@ -1,7 +1,7 @@
 ﻿P_PickUpLoot() {
     global s_P_Loot
 
-    c_Max_Loot_Level := 2
+    c_Max_Loot_Level := 1
 
     ; Sleep for a bit to allow loot to fall on the ground and be detected.
     Sleep(1000)
@@ -19,7 +19,7 @@
     }
     Log("Loot detected (level=" loot_level ")")
     SaveD2Bitmap(d2bitmap, TempFile("Screenshot_P_loot_detected.bmp"))
-    s_P_Loot.Detected := s_P_Loot.Detected + 1
+    s_P_Loot[loot_level].Detected := s_P_Loot[loot_level].Detected + 1
 
     ; Blink towards where loot may be
     Press "C"
@@ -56,10 +56,10 @@
     looted := (remaining_loot_level = 0)
     if (looted) {
         Log("Successfully picked up loot (level " loot_level ")")
-        s_P_Loot.Looted := s_P_Loot.Looted + 1
+        s_P_Loot[loot_level].Looted := s_P_Loot[loot_level].Looted + 1
     } else {
         LogWarning("Failed to pick up loot (level " loot_level ")")
-        s_P_Loot.Failed := s_P_Loot.Failed + 1
+        s_P_Loot[loot_level].Failed := s_P_Loot[loot_level].Failed + 1
 
         ; Take a picture of the scene before moving on
         now := FormatTime(A_Now, "HHmmss")

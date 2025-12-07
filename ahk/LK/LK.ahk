@@ -13,14 +13,14 @@
 
 s_LK_Tasks := Queue()
 s_LK_Run_ID := -1
-EmptyLootData() {
+LKEmptyLootData() {
     return { Detected: 0, LootedPlanned: 0, LootedAltClick: 0, Failed: 0 }
 }
 s_LK_Loot := [
-    [EmptyLootData(), EmptyLootData()],
-    [EmptyLootData(), EmptyLootData()],
-    [EmptyLootData(), EmptyLootData()],
-    [EmptyLootData(), EmptyLootData()]
+    [LKEmptyLootData(), LKEmptyLootData()],
+    [LKEmptyLootData(), LKEmptyLootData()],
+    [LKEmptyLootData(), LKEmptyLootData()],
+    [LKEmptyLootData(), LKEmptyLootData()]
 ]
 s_LK_Potions_Used := 0
 s_LK_Loot_Detected_by_Text := 0
@@ -97,8 +97,8 @@ LK_Announce() {
 
     s_LK_Run_ID := s_LK_Run_ID + 1
 
-    purple := EmptyLootData()
-    orange := EmptyLootData()
+    purple := LKEmptyLootData()
+    orange := LKEmptyLootData()
     purple.Detected       := s_LK_Loot[1][1].Detected + s_LK_Loot[2][1].Detected + s_LK_Loot[3][1].Detected + s_LK_Loot[4][1].Detected
     orange.Detected       := s_LK_Loot[1][2].Detected + s_LK_Loot[2][2].Detected + s_LK_Loot[3][2].Detected + s_LK_Loot[4][2].Detected
     purple.LootedPlanned  := s_LK_Loot[1][1].LootedPlanned + s_LK_Loot[2][1].LootedPlanned + s_LK_Loot[3][1].LootedPlanned + s_LK_Loot[4][1].LootedPlanned
@@ -111,7 +111,13 @@ LK_Announce() {
     msg := (
         "Runs: " s_LK_Run_ID
         "   |   P: " purple.Detected "=>" purple.LootedPlanned "/" purple.LootedAltClick "-" purple.Failed
-            "   O: " orange.Detected "=>" orange.LootedPlanned "/" orange.LootedAltClick "-" orange.Failed
+    )
+    if (orange.Detected) {
+        msg .= (
+        "   O: " orange.Detected "=>" orange.LootedPlanned "/" orange.LootedAltClick "-" orange.Failed
+        )
+    }
+    msg .= (
             "   HP: " s_LK_Potions_Used
             "   T: " s_LK_Loot_Detected_by_Text
     )
