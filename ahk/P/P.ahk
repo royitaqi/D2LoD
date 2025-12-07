@@ -22,15 +22,17 @@ s_P_Run_ID := nil
 s_P_Loot := nil
 s_P_Loot_Caught_by_Text := nil
 s_P_Potions_Used := nil
+s_P_Hires := nil
 s_P_Restarts := nil
 
 P_Init() {
-    global s_P_Tasks, s_P_Run_ID, s_P_Loot, s_P_Loot_Caught_by_Text, s_P_Potions_Used, s_P_Restarts
+    global s_P_Tasks, s_P_Run_ID, s_P_Loot, s_P_Loot_Caught_by_Text, s_P_Potions_Used, s_P_Hires, s_P_Restarts
     s_P_Tasks := Queue()
     s_P_Run_ID := -1
     s_P_Loot := [PEmptyLootData(), PEmptyLootData()]
     s_P_Loot_Caught_by_Text := 0
     s_P_Potions_Used := 0
+    s_P_Hires := 0
     s_P_Restarts := -1
 
     LogLevelVerbose()
@@ -114,6 +116,7 @@ P_Announce() {
     }
     msg .= (
             "   H: " s_P_Potions_Used
+            "   Hi: " s_P_Hires
             "   T: " s_P_Loot_Caught_by_Text
             "   R: " s_P_Restarts
     )

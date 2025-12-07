@@ -13,7 +13,16 @@ P_HealAndEnterRedPortal() {
     
     ; Check that the hireling is alive
     if (!CheckHirelingAlive()) {
-        StopScript("Hireling is dead. Re-hire isn't implemented.", true, true)
+        global s_P_Hires
+        s_P_Hires += 1
+
+        LogImportant("Hireling is dead. Rehiring")
+        P_Rehire()
+        AssertTrue(CheckHirelingAlive(), "Hireling should be alive after rehire")
+
+        LogVerbose("Restarting after rehire")
+        P_EmergencyRestart()
+        return
     }
     LogVerbose("Hireling is alive")
 
@@ -68,4 +77,15 @@ P_HealAndEnterRedPortal() {
     }
     ; The inner AssertTrue() is used to throw Error, so that RetryTimeout() can detect failure when the character hasn't entered the portal.
     AssertTrue(RetryTimeout(() => AssertTrue(hasEnteredPortal(), , s_Never), 2000, 200), "Should have entered the Temple")
+}
+
+P_Rehire() {
+    ; Talk to Qual-Kehk
+    ClickOrMove2(605, 325, "Left", , 500)
+    
+    ; Hire
+    ClickOrMove2(625, 177, "Left", , 500)
+
+    ; Cancel dialog menu
+    Press("{Escape}", 500)
 }
