@@ -33,15 +33,25 @@ A_TeleportToAndarialAndKill() {
     timeout_tick := start_tick + 10000
     emergency_restart := false
     is_boss_alive := true
+    first_round := true
     while (A_TickCount < timeout_tick) {
         Send "R"
         Click "Right"
         Sleep 400
         Send "F"
+        ; Hold down SHIFT if this is not the first round of attack.
+        ; For the first round, we want to walk to Andrarial so that she is in attack range.
+        if (!first_round) {
+            Send "{Shift Down}"
+        }
         Click "Right Down"
         Sleep 2000
         Click "Right Up"
+        if (!first_round) {
+            Send "{Shift Up}"
+        }
         Sleep 400
+        first_round := false
 
         ; Check if Andarial is dead or not
         ; > 892 162
