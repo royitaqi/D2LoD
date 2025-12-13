@@ -5,6 +5,22 @@ A_HealAndEnterWaypoint() {
     Press("B")
     AssertEqual(GetCurrentLevel(), "Rogue Encampment", "Should be in Rouge Encampment")
 
+    ; Check that the hireling is alive
+    if (!CheckHirelingAlive()) {
+        global s_A_Hires
+        s_A_Hires += 1
+
+        LogImportant("Hireling is dead. Rehiring")
+        A_Rehire()
+        AssertTrue(CheckHirelingAlive(), "Hireling should be alive after rehire")
+
+        LogVerbose("Restarting after rehire")
+        A_EmergencyRestart()
+        return
+    }
+    LogVerbose("Hireling is alive")
+
+
     ; Run towards Akara
     Hold(999, 406, "Left", 2000)
     MouseMove(534, 300)
@@ -43,5 +59,18 @@ A_HealAndEnterWaypoint() {
     ClickOrMove2(match_x + 50, match_y, "Left", , 1200)
 
     ; Click the level in the waypoint menu
-    ClickOrMove2(300, 420, "Left")
+    ClickOrMove2(400, 420, "Left")
+}
+
+A_Rehire() {
+    ; Talk to Qual-Kehk
+    ClickOrMove2(903, 390, "Left", , 1000)
+
+    ;StopScript(nil, false, false)
+    
+    ; Hire
+    ClickOrMove2(597, 170, "Left", , 500)
+
+    ; Cancel dialog menu
+    Press("{Escape}", 500)
 }
