@@ -49,6 +49,8 @@ DoNotMockD2Bitmaps(test) {
 RunTest(test) {
     global s_Tests_Ran, s_Mocked_D2Bitmaps
 
+    Assert(s_Mocked_D2Bitmaps.Length = 0, "Leftover bitmaps from last test detected: " s_Mocked_D2Bitmaps.Length)
+
     time := TimeIt(() => test.Call())
     s_Tests_Ran.Push("[" time "] " test.Name)
 

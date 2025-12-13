@@ -7,7 +7,7 @@
     - [2] Action. If it's a number (1-4), it indicates which potion to use (1-4). If it's a function, it will be invoked.
     Note: The percentages will be checked in order. Lower health percentage pairs should always be put in front of higher health percentage pairs.
 
-    Returns the index of the action that is taken (start from 1), or 0 if none is taken.
+    Finds the first percentage that is NOT met. Takes the corresponding action and returns the index (start from 1; or 0 if no action is taken).
 */
 CheckHealth(d2bitmap, strategy) {
     if (!d2bitmap) {
@@ -28,17 +28,17 @@ CheckHealth(d2bitmap, strategy) {
         The cursor is at X=70 Y=590 - 0%    - The color at X=70 Y=590 is 0x080808
     */
     pixels := Map(
-        110, Map("Y", 502, "Color", 0x5C0000), ; For test purpose only
-        100, Map("Y", 510, "Color", 0x380804),
-        90,  Map("Y", 518, "Color", 0x5C0000),
-        80,  Map("Y", 526, "Color", 0x5C0000),
-        70,  Map("Y", 534, "Color", 0x5C0000),
-        60,  Map("Y", 542, "Color", 0x5C0000),
-        50,  Map("Y", 550, "Color", 0x5C0000),
-        40,  Map("Y", 558, "Color", 0x5C0000),
-        30,  Map("Y", 566, "Color", 0x5C0000),
-        20,  Map("Y", 574, "Color", 0x240000),
-        10,  Map("Y", 582, "Color", 0x080404),
+        110, Map("Y", 502, "Color", 0x5C0000, "PoisonedColor", 0x18480C), ; For test purpose only
+        100, Map("Y", 510, "Color", 0x380804, "PoisonedColor", 0x042410),
+        90,  Map("Y", 518, "Color", 0x5C0000, "PoisonedColor", 0x18480C),
+        80,  Map("Y", 526, "Color", 0x5C0000, "PoisonedColor", 0x18480C),
+        70,  Map("Y", 534, "Color", 0x5C0000, "PoisonedColor", 0x18480C),
+        60,  Map("Y", 542, "Color", 0x5C0000, "PoisonedColor", 0x18480C),
+        50,  Map("Y", 550, "Color", 0x5C0000, "PoisonedColor", 0x18480C),
+        40,  Map("Y", 558, "Color", 0x5C0000, "PoisonedColor", 0x18480C),
+        30,  Map("Y", 566, "Color", 0x5C0000, "PoisonedColor", 0x042410),
+        20,  Map("Y", 574, "Color", 0x240000, "PoisonedColor", 0x042410),
+        10,  Map("Y", 582, "Color", 0x080404, "PoisonedColor", 0x040404),
     )
     
     for i, pair in strategy {
@@ -49,8 +49,10 @@ CheckHealth(d2bitmap, strategy) {
         pixel := pixels[percentage]
         y := pixel["Y"]
         color := pixel["Color"]
+        poisoned_color := pixel["PoisonedColor"]
 
-        is_health_below_percentage := (GetPixelColorInRGB(d2bitmap, 70, y) != color)
+        pixel_color := GetPixelColorInRGB(d2bitmap, 70, y)
+        is_health_below_percentage := (pixel_color != color && pixel_color != poisoned_color)
 
         if (is_health_below_percentage) {
             msg := "Health is lower than " percentage "%."
