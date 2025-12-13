@@ -43,5 +43,5 @@ A_HealAndEnterWaypoint() {
     ClickOrMove2(match_x + 50, match_y, "Left", , 1200)
 
     ; Click the level in the waypoint menu
-    ClickOrMove2(450, 420, "Left")
+    ClickOrMove2(300, 420, "Left")
 }

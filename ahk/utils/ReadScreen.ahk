@@ -14,6 +14,8 @@ s_Hud_Y := 550
 s_Level_X := 900
 s_Level_Y := 30
 
+s_Boss_Minimap_Color := 0x18FC00
+
 s_Last_D2Bitmap := nil
 
 GetD2Bitmap := GetD2BitmapImpl
@@ -295,11 +297,11 @@ GridPatternTwoPass(pass1_callback, pass2_callback, x1 := 0, y1 := 0, x2 := s_Max
             if (ret != nil) {
 
                 ; Pass #2
-                xx := x - x_stride // 2
-                xx_max := xx + x_stride - 1
+                xx := max(x - x_stride // 2, x1)
+                xx_max := min(xx + x_stride - 1, x2)
                 while (xx <= xx_max) {
-                    yy := y - y_stride // 2
-                    yy_max := yy + y_stride - 1
+                    yy := max(y - y_stride // 2, y1)
+                    yy_max := min(yy + y_stride - 1, y2)
                     while (yy <= yy_max) {
                         retret := pass2_callback(xx, yy)
                         if (retret != nil) {
