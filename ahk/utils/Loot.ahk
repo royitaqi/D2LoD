@@ -31,7 +31,7 @@ DetectLootInMinimap(d2bitmap := 0, max_loot_level := 2) {
     }
 }
 
-DetectLootByText(d2bitmap := 0, lines := 10, chars := 1, max_loot_level := 2) {
+DetectLootByText(d2bitmap := 0, max_loot_level := 2, lines := 10, chars := 1) {
     if (!d2bitmap) {
         d2bitmap := GetD2Bitmap()
     }

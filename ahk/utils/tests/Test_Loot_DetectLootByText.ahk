@@ -15,12 +15,12 @@ Test_Loot_DetectLootByText_LinesCharsLootLevel() {
         "Test_Loot_DetectLootByText_Line6PurpleOrange.bmp",
         "Test_Loot_DetectLootByText_Line6PurpleOrange.bmp",
     )
-    Assert(DetectLootByText(, 5, 1, 1) = 0, "Should not detect loot")
-    Assert(DetectLootByText(, 6, 1, 1) = 0, "Should not detect loot")
-    Assert(DetectLootByText(, 6, 12, 1) = 1, "Should detect purple loot")
-    Assert(DetectLootByText(, 5, 1, 2) = 0, "Should not detect loot")
-    Assert(DetectLootByText(, 6, 1, 2) = 2, "Should detect orange loot")
-    Assert(DetectLootByText(, 6, 12, 2) = 2, "Should detect orange loot")
+    Assert(DetectLootByText(, 1, 5, 1) = 0, "Should not detect loot")
+    Assert(DetectLootByText(, 1, 6, 1) = 0, "Should not detect loot")
+    Assert(DetectLootByText(, 1, 6, 12) = 1, "Should detect purple loot")
+    Assert(DetectLootByText(, 2, 5, 1) = 0, "Should not detect loot")
+    Assert(DetectLootByText(, 2, 6, 1) = 2, "Should detect orange loot")
+    Assert(DetectLootByText(, 2, 6, 12) = 2, "Should detect orange loot")
 }
 RunTest(Test_Loot_DetectLootByText_LinesCharsLootLevel)
 
