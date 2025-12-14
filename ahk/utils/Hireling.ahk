@@ -22,12 +22,14 @@ CheckHirelingHealth() {
     x_max := 60
     y := 18
     green := 0x186408
+    green2 := 0x008400
     yellow := 0xD08420
     red := 0xFC2C00
     
     color := GetPixelColorInRGB(d2bitmap, x_min, y)
     switch (color) {
-        case green: return 3
+        case green, green2:
+            return 3
         case yellow: return 2
         case red: return 1
         default: return 0
