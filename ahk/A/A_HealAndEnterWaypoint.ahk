@@ -20,7 +20,6 @@ A_HealAndEnterWaypoint() {
     }
     LogVerbose("Hireling is alive")
 
-
     ; Run towards Akara
     Hold(999, 406, "Left", 2000)
     MouseMove(534, 300)
@@ -45,8 +44,12 @@ A_HealAndEnterWaypoint() {
     ; Move to the left so as to clear the way to the waypoint
     ClickOrMove2(200, 250, "Left", , 800)
 
-    ; Find the waypoint
     d2bitmap := GetD2Bitmap()
+
+    ; Double check health should be full
+    AssertEqual(CheckHealth(d2bitmap, [[100, () => nil]]), 0, "Health should be full")
+
+    ; Find the waypoint
     found := GridPattern(
         DetectColorCallback([[d2bitmap, true]], 0x76A9DE, 0x20, 0x6988F4, 0x20),
         , , , s_Hud_Y, 6, 6,

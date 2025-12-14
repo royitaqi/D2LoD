@@ -6,65 +6,55 @@ A_PickUpLoot() {
 
     c_Max_Loot_Level := 1
 
+/*
     ; Sleep for a bit to allow loot to fall on the ground and be detected.
     Press("{Alt Down}")
     Sleep(1000)
-    d2bitmap := GetD2Bitmap(TempFile("Screenshot_A_detect_loot.bmp"))
+    GetD2Bitmap(TempFile("Screenshot_A_detect_loot.bmp"))
     Press("{Alt Up}")
-    loot_level := DetectLootInMinimap(d2bitmap, c_Max_Loot_Level)
-    loot_level_by_text := DetectLootByText(d2bitmap, c_Max_Loot_Level)
-    if (loot_level_by_text > 0 && loot_level = 0) {
-        global s_A_Loot_Caught_by_Text
-        s_A_Loot_Caught_by_Text := s_A_Loot_Caught_by_Text + 1
-        SaveD2Bitmap(d2bitmap, TempFile("Screenshot_A_failed_to_detect_loot_run_" s_LK_Run_ID "_level_" loot_level "_caught_by_text_" loot_level_by_text ".bmp"))
-    }
-    if (loot_level = 0) {
-        LogVerbose("No loot is detected")
-        return
-    }
-    Log("Loot detected (level=" loot_level ")")
-    SaveD2Bitmap(d2bitmap, TempFile("Screenshot_A_loot_detected.bmp"))
-    s_A_Loot[loot_level].Detected := s_A_Loot[loot_level].Detected + 1
+*/
 
-    ; Blink towards where loot may be
-    Press "C"
-    ClickOrMove2 800, 150, "Right", , s_Blink_Delay
-
-    ; Try to pick it up by Alt + Click for 3 times.
-    loot_count := 0
+    ; Detect and try to pick up loot on ground
+    was_loot_detected := false
+    loot_level := nil
+    loot_bitmap := nil
     loop 3 {
-        LogVerbose("Attempting to pick up loot")
+        LogVerbose("Detecting loot on ground")
         detected := PickUpLootOnGround(c_Max_Loot_Level, 1000)
-        LogVerbose("Was loot detected by holding Alt: " detected)
 
         if (detected) {
+            LogVerbose("Loot was detected.")
+            was_loot_detected := true
+            loot_level := detected[1]
+            loot_bitmap := detected[2]
+            SaveD2Bitmap(loot_bitmap, TempFile("Screenshot_A_loot_detected.bmp"))
+
             transfered_count := TransferLootFromInventoryIntoCube(2, 8, 4, 2, 1, 8)
             if (transfered_count = -1) {
                 ; The cube is full. No point to do more runs. Stop the script by pausing the game.
                 StopScript("Cube is full. Pausing the game and stopping the script.", true, true)
             }
-            loot_count := loot_count + transfered_count
-        }
-
-        remaining_loot_level := DetectLootInMinimap(, c_Max_Loot_Level)
-        looted := (remaining_loot_level = 0)
-        if (looted) {
+        } else {
+            LogVerbose("Loot was not detected.")
             break
         }
 
         CheckHealth(nil, [[40, A_EmergencyRestart]])
     }
-    LogVerbose(loot_count " loot has been transfered to cube")
 
-    ; Check if the loot has been picked up (by see what's remaining on the ground)
-    remaining_loot_level := DetectLootInMinimap(, c_Max_Loot_Level)
-    looted := (remaining_loot_level = 0)
-    if (looted) {
+    if (!was_loot_detected) {
+        ; No loot
+        return
+    } else if (!detected) {
+        ; Loot picked up
         Log("Successfully picked up loot (level " loot_level ")")
-        s_A_Loot[loot_level].Looted := s_A_Loot[loot_level].Looted + 1
+        s_A_Loot[loot_level].Detected += 1
+        s_A_Loot[loot_level].Looted += 1
     } else {
+        ; Loot not picked up
         LogWarning("Failed to pick up loot (level " loot_level ")")
-        s_A_Loot[loot_level].Failed := s_A_Loot[loot_level].Failed + 1
+        s_A_Loot[loot_level].Detected += 1
+        s_A_Loot[loot_level].Failed += 1
 
         ; Take a picture of the scene before moving on
         now := FormatTime(A_Now, "HHmmss")

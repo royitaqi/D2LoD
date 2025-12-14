@@ -63,7 +63,7 @@ A_TeleportToAndarialAndKill() {
         }
         LogVerbose("Andarial is still alive")
 
-        if (CheckHealth(nil, [[40, A_EmergencyRestart]])) {
+        if (CheckHealth(d2bitmap, [[40, A_EmergencyRestart]])) {
             global s_A_Heal_Concerns
             s_A_Heal_Concerns.Hero += 1
             emergency_restart := true

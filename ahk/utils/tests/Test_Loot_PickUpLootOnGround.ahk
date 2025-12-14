@@ -10,7 +10,7 @@ Test_Loot_PickUpLootOnGround_1() {
         "Test_Loot_PickUpLootOnGround_NoAlt.bmp",
         "Test_Loot_PickUpLootOnGround_HoldAlt.bmp",
     )
-    Assert(PickUpLootOnGround() = true, "Should be able to detect orange loot")
+    AssertTrue(PickUpLootOnGround(), "Should be able to detect orange loot")
 }
 RunTest(Test_Loot_PickUpLootOnGround_1)
 
@@ -19,7 +19,7 @@ Test_Loot_PickUpLootOnGround_2() {
         "Test_Loot_PickUpLootOnGround_NoAlt.bmp",
         "Test_Loot_PickUpLootOnGround_HoldAlt.bmp",
     )
-    Assert(PickUpLootOnGround(1) = true, "Should be able to detect purple loot")
+    AssertTrue(PickUpLootOnGround(1), "Should be able to detect purple loot")
 }
 RunTest(Test_Loot_PickUpLootOnGround_2)
 
@@ -28,7 +28,7 @@ Test_Loot_PickUpLootOnGround_3() {
         "Test_Loot_PickUpLootOnGround_Test3_NoAlt.bmp",
         "Test_Loot_PickUpLootOnGround_Test3_HoldAlt.bmp",
     )
-    Assert(PickUpLootOnGround(2, 1000), "Should be able to detect loot")
+    AssertTrue(PickUpLootOnGround(2, 1000), "Should be able to detect loot")
 }
 RunTest(Test_Loot_PickUpLootOnGround_3)
 

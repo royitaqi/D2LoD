@@ -6,6 +6,10 @@
 #include A_TeleportToAndarialAndKill.ahk
 
 
+AEmptyLootData() {
+    return { Detected: 0, Looted: 0, Failed: 0 }
+}
+
 s_A_Tasks := nil
 s_A_Run_ID := nil
 s_A_Loot := nil
@@ -18,7 +22,7 @@ A_Init() {
     global s_A_Tasks, s_A_Run_ID, s_A_Loot, s_A_Heal_Concerns, s_A_Hires, s_A_Restarts
     s_A_Tasks := Queue()
     s_A_Run_ID := -1
-    s_A_Loot := { Detected: 0, Looted: 0, Failed: 0 }
+    s_A_Loot := [AEmptyLootData(), AEmptyLootData()]
     s_A_Heal_Concerns := { Hero: 0, Merc: 0 }
     s_A_Hires := 0
     s_A_Restarts := -1
@@ -94,10 +98,20 @@ A_Announce() {
 
     s_A_Run_ID := s_A_Run_ID + 1
 
-    Log("Runs: " s_A_Run_ID
-        "   |   P: " s_A_Loot.Detected "=>" s_A_Loot.Looted "-" s_A_Loot.Failed
+    msg := (
+        "Runs: " s_A_Run_ID
+        "   |   P: " s_A_Loot[1].Detected "=>" s_A_Loot[1].Looted "-" s_A_Loot[1].Failed
+    )
+    if (s_A_Loot[2].Detected) {
+        msg .= (
+            "   O: " s_A_Loot[2].Detected "=>" s_A_Loot[2].Looted "-" s_A_Loot[2].Failed
+        )
+    }
+    msg .= (
             "   H: " s_A_Heal_Concerns.Hero "/" s_A_Heal_Concerns.Merc
             "   Hi: " s_A_Hires
             "   R: " s_A_Restarts
     )
+
+    Log(msg)
 }
