@@ -23,6 +23,7 @@
 11/27 17:26:43+16:19:29 P_16 CIF     Runs: 9784  |   P: 36=>36-0   H: 5   T: 0   R: 0   // On laptop
 12/03 20:36:51#02:55:41 P_17 CIF     Runs: 11270 |   P: 38=>38-0   H: 2   T: 0   R: 0   // On laptop
 12/07          00:24:58 P_17 DID     Runs: 18319 |   P: 50=>50-0   H: 5   T: 0   R: 2   // On laptop
+12/14          01:00:55 P_19 CIF     Runs: 15220 |   P: 18=>18-0   H: 4   Hi: 8   T: 13   R: 4     // On laptop. Restarts: FRH FRH FRH FRH
 
 - = D1-(D2)
 + = D1-D2+D3
@@ -38,17 +39,18 @@ DNS = Did Not Stop
 DID = D2LoD Is Dead
 FPL = Failed to Pick up Loot
 TGL = Timed out while waiting for Game to be Loaded
+FRH = Failed to ReHire
 
 
 # Details
 
-WNF = Window Not Found
+## WNF = Window Not Found
 * For some reason, ReadScreen will report that the window is not found at some point, as if the window is deactivaed.
 * Maybe some oher random window popped up and stole the focus.
 * No other window was found when this error was seen, supposedly long afer the error happened.
 
 
-SGL = Still Grabbing Loot
+## SGL = Still Grabbing Loot
 ```
 Roy's note:
 - The loot was still grabbed by the mouse when this happened.
@@ -83,3 +85,27 @@ D:\GitHubRepositories\D2LoD\ahk\P\P.ahk (39) : [P_Main] P_Loop()
 D:\GitHubRepositories\D2LoD\ahk\AdvancedMode.ahk (143) : [<Hotkey>] P_Main()
 > L
 ```
+
+
+## FRH = Failed to ReHire
+
+09:40:32 - IMPORTANT: Hireling is dead. Rehiring
+09:40:35 - ERROR: Hireling should be alive after rehire (expected 1, actually 0)
+09:40:35 - ERROR: Error was thrown: [AssertTrue] Hireling should be alive after rehire (expected 1, actually 0)
+
+C:\GitHubRepositories\D2LoD\ahk\utils\Debug.ahk (21) : [AssertTrue] Assert(expr = true, msg " (expected 1, actually " ToString(expr) ")", log_level, backtrack_level - 1)
+C:\GitHubRepositories\D2LoD\ahk\P\P_HealAndEnterRedPortal.ahk (21) : [P_HealAndEnterRedPortal] AssertTrue(CheckHirelingAlive(), "Hireling should be alive after rehire")
+C:\GitHubRepositories\D2LoD\ahk\P\P.ahk (78) : [Func.Prototype.Call] task.Call()
+C:\GitHubRepositories\D2LoD\ahk\P\P.ahk (78) : [P_Loop] task.Call()
+C:\GitHubRepositories\D2LoD\ahk\P\P.ahk (70) : [P_Start] P_Loop()
+C:\GitHubRepositories\D2LoD\ahk\utils\Script.ahk (102) : [Func.Prototype.Call] func.Call()
+C:\GitHubRepositories\D2LoD\ahk\utils\Script.ahk (102) : [RunForever] func.Call()
+C:\GitHubRepositories\D2LoD\ahk\P\P.ahk (62) : [P_Main] RunForever(P_Start)
+C:\GitHubRepositories\D2LoD\ahk\AdvancedMode.ahk (179) : [<Hotkey>] P_Main()
+> L
+
+09:40:35 - IMPORTANT: Played Notification sound
+09:40:35 - IMPORTANT: Attempting failure recovery
+09:40:35 - IMPORTANT: Activated D2 window
+09:40:39 - IMPORTANT: Recovered from failure
+09:40:39 - IMPORTANT: Running P_Start
