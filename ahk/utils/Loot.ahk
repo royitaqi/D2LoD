@@ -54,7 +54,8 @@ DetectLootByText(d2bitmap := 0, max_loot_level := 2, lines := 10, chars := 1) {
     1 = purple only
     2 = purple and orange
 
-    Returns true if loot is detected on the ground by holding Alt, false otherwise.
+    Returns the loot level and d2bitmap if loot is detected on the ground by holding Alt.
+    Otherwise, returns false.
 */
 PickUpLootOnGround(max_loot_level := 2, walk_delay := 1000) {
     if (max_loot_level = 1) {
@@ -64,6 +65,8 @@ PickUpLootOnGround(max_loot_level := 2, walk_delay := 1000) {
     }
 
     /*
+        (Outdated)
+
         The purple text "==HIGH== (26)" is 90 pixel wide
         > The cursor is at X=599 Y=300
         > The cursor is at X=509 Y=299
@@ -74,20 +77,23 @@ PickUpLootOnGround(max_loot_level := 2, walk_delay := 1000) {
 
         Let's take 20 stride in X. That's at least 4 lines in <100 pixels.
     */
-    c_X_Stride := 20
+    /*
+        In the purple text "Ring", each letter has at least 7 rows which contain the purple color.
+    */
+    c_Y_Stride := 7
 
     d2bitmap1 := GetD2Bitmap()
     Press("{Alt down}", 200)
     d2bitmap2 := GetD2Bitmap()
 
     ; Find the top-left most pixel that has a loot color
-    match := VerticalStridePattern(
+    match := GridPattern(
         DetectColorCallback(
-            [[d2bitmap1, false], [d2bitmap2, true]],
+            [[d2bitmap2, true], [d2bitmap1, false]],
             s_Purple_Text, 0,
             color2, 0
         ),
-        c_X_Stride, , , , s_Hud_Y, &match_x, &match_y
+        , , , s_Hud_Y, , c_Y_Stride, &match_x, &match_y
     )
 
     if (!match) {
@@ -101,7 +107,7 @@ PickUpLootOnGround(max_loot_level := 2, walk_delay := 1000) {
     ClickOrMove(match_x, match_y, "Left", walk_delay)
     Press("{Alt up}", 200)
 
-    return true
+    return [match[1], d2bitmap2]
 }
 
 /*
