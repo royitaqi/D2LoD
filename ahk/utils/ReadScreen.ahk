@@ -371,19 +371,15 @@ DetectColorCallback(bitmap_config, color1 := 0, variation1 := 0, color2 := 0, va
     callback(x, y) {
         ret := []
         ret.Length := n
-        good := 0
         for i, cfg in bitmap_config {
             d2bitmap := cfg[1]
             should_detect := cfg[2]
             ret[i] := DetectPixelColor(d2bitmap, x, y, r1, g1, b1, variation1, r2, g2, b2, variation2)
-            if ((ret[i] != 0) = should_detect) {
-                good := good + 1
+            if ((ret[i] != 0) != should_detect) {
+                return nil
             }
         }
-        if (good = n) {
-            return ret
-        }
-        return nil
+        return ret
     }
     return callback
 }
