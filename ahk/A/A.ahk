@@ -14,17 +14,21 @@ s_A_Tasks := nil
 s_A_Run_ID := nil
 s_A_Loot := nil
 s_A_Loot_Caught_by_Text := nil
-s_A_Heal_Concerns := nil
+s_A_Health_Problem := nil
 s_A_Hires := nil
+s_A_Failed_Checkpoints := nil
+s_A_Long_Fight := nil
 s_A_Restarts := nil
 
 A_Init() {
-    global s_A_Tasks, s_A_Run_ID, s_A_Loot, s_A_Heal_Concerns, s_A_Hires, s_A_Restarts
+    global s_A_Tasks, s_A_Run_ID, s_A_Loot, s_A_Health_Problem, s_A_Hires, s_A_Failed_Checkpoints, s_A_Long_Fight, s_A_Restarts
     s_A_Tasks := Queue()
     s_A_Run_ID := -1
     s_A_Loot := [AEmptyLootData(), AEmptyLootData()]
-    s_A_Heal_Concerns := { Hero: 0, Merc: 0 }
+    s_A_Health_Problem := { Hero: 0, Merc: 0 }
     s_A_Hires := 0
+    s_A_Failed_Checkpoints := Map()
+    s_A_Long_Fight := 0
     s_A_Restarts := -1
 
     LogLevelVerbose()
@@ -93,8 +97,24 @@ A_EmergencyRestart() {
     A_SaveLoadAnnounce()
 }
 
+A_PassCheckpoint(name, should_be_true) {
+    if (should_be_true) {
+        return true
+    }
+
+    LogWarning("Failing checkpoint " name)
+
+    global s_A_Failed_Checkpoints
+    if (!s_A_Failed_Checkpoints.Has(name)) {
+        s_A_Failed_Checkpoints[name] := 0
+    }
+    s_A_Failed_Checkpoints[name] += 1
+    
+    return false
+}
+
 A_Announce() {
-    global s_A_Run_ID, s_A_Loot, s_A_Heal_Concerns, s_A_Hires, s_A_Restarts
+    global s_A_Run_ID, s_A_Loot, s_A_Health_Problem, s_A_Hires, s_A_Failed_Checkpoints, s_A_Long_Fight, s_A_Restarts
 
     s_A_Run_ID := s_A_Run_ID + 1
 
@@ -108,10 +128,17 @@ A_Announce() {
         )
     }
     msg .= (
-            "   H: " s_A_Heal_Concerns.Hero "/" s_A_Heal_Concerns.Merc
+            "   H: " s_A_Health_Problem.Hero "/" s_A_Health_Problem.Merc
             "   Hi: " s_A_Hires
+            "   L: " s_A_Long_Fight
             "   R: " s_A_Restarts
     )
+    if (s_A_Failed_Checkpoints.Count > 0) {
+        msg .= "   CP"
+        for key, value in s_A_Failed_Checkpoints {
+            msg .= "/" key "=" value
+        }
+    }
 
     Log(msg)
 }

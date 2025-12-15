@@ -33,7 +33,10 @@ A_HealAndEnterWaypoint() {
         , , , s_Hud_Y, 6, 6,
         &match_x, &match_y
     )
-    AssertTrue(found, "Should find Akara")
+    if (!A_PassCheckpoint("a", found)) {
+        A_EmergencyRestart()
+        return
+    }
     LogVerbose("Found Akara at x=" match_x " y=" match_y)
 
     ; Talk to Akara
@@ -47,7 +50,10 @@ A_HealAndEnterWaypoint() {
     d2bitmap := GetD2Bitmap()
 
     ; Double check health should be full
-    AssertEqual(CheckHealth(d2bitmap, [[100, () => nil]]), 0, "Health should be full")
+    if (!A_PassCheckpoint("h", CheckHealth(d2bitmap, [[100, () => nil]]) == 0)) {
+        A_EmergencyRestart()
+        return
+    }
 
     ; Find the waypoint
     found := GridPattern(
@@ -55,7 +61,10 @@ A_HealAndEnterWaypoint() {
         , , , s_Hud_Y, 6, 6,
         &match_x, &match_y
     )
-    AssertTrue(found, "Should find waypoint")
+    if (!A_PassCheckpoint("w2", found)) {
+        A_EmergencyRestart()
+        return
+    }
     LogVerbose("Found waypoint at x=" match_x " y=" match_y)
     
     ; Go to the waypoint

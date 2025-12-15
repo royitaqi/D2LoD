@@ -60,13 +60,15 @@ CheckHealth(d2bitmap, strategy) {
             if (IsInteger(action)) {
                 Press("" action "")
                 Log(msg " Potion [" action "] used.")
-                return i
             }
             else if (IsFunction(action)) {
                 action.Call()
                 Log(msg " Action [" action.Name "] taken.")
-                return i
             }
+            else {
+                Log(msg " No action taken.")
+            }
+            return i
         }
 
         i := i + 1

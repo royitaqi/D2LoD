@@ -2,7 +2,10 @@
 
 
 A_GoToLevel() {
-    Assert(GetCurrentLevel() = "Catacombs Level 2", "Should be in Catacombs Level 2")
+    if (!A_PassCheckpoint("i2", GetCurrentLevel() = "Catacombs Level 2")) {
+        A_EmergencyRestart()
+        return
+    }
 
     ; Blink bottom right to stairs
     Send "C"
@@ -51,9 +54,15 @@ A_GoToLevel() {
         AssertTrue(found, "Should find stair torch")
         LogVerbose("Found stair torch at x=" match_x " y=" match_y)
     }
-    AssertNoError(RetryTimeout(FindStairTorch, 10000), "Should find stair torch (all retries have failed)")
-    
+    if (!A_PassCheckpoint("w4", !IsError(RetryTimeout(FindStairTorch, 10000)))) {
+        A_EmergencyRestart()
+        return
+    }
+
     ; Go down to Level 4
     ClickOrMove2(match_x + 100, match_y + 100, "Left", , 1000)
-    AssertEqual(GetCurrentLevel(), "Catacombs Level 4", "Should be in Catacombs Level 4")
+    if (!A_PassCheckpoint("i4", GetCurrentLevel() = "Catacombs Level 4")) {
+        A_EmergencyRestart()
+        return
+    }
 }

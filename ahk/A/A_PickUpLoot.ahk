@@ -39,7 +39,11 @@ A_PickUpLoot() {
             break
         }
 
-        CheckHealth(nil, [[40, A_EmergencyRestart]])
+        if (CheckHealth(nil, [[40, nil]])) {
+            global s_A_Health_Problem
+            s_A_Health_Problem.Hero += 1
+            break
+        }
     }
 
     if (!was_loot_detected) {
@@ -62,11 +66,8 @@ A_PickUpLoot() {
         GetD2Bitmap(TempFile("Screenshot_A_failed_to_pick_up_loot_run_" s_A_Run_ID "_level_" loot_level ".bmp"))
         Press("{Alt up}", 0)
 
-        if (loot_level = 1) {
-            ; Play sound and wait so that a human can have the chance to interfere before moving on
-            SoundPlay("sounds/Notification.aac", 1)
-            Sleep(1000)
-            SoundPlay("sounds/Notification.aac", 1)
+        if (loot_level == 1) {
+            SoundPlay("sounds/Notification.aac", 0)
         }
     }
 

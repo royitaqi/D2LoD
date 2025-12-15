@@ -53,19 +53,24 @@ A_TeleportToAndarialAndKill() {
         Sleep 400
         first_round := false
 
+        d2bitmap := GetD2Bitmap(TempFile("ScreenShot_A_after_attacks.bmp"))
+
         ; Check if Andarial is dead or not
         ; > 892 162
         ; > 909 173
-        d2bitmap := GetD2Bitmap()
-        is_boss_alive := DetectPixelColorInRect2(d2bitmap, 892, 162, 909, 173, s_Boss_Minimap_Color, 0)
+        ;is_boss_alive := DetectPixelColorInRect2(d2bitmap, 892, 162, 909, 173, s_Boss_Minimap_Color, 0)
+        is_boss_alive := DetectAndarial(d2bitmap)
         if (!is_boss_alive) {
             break
         }
         LogVerbose("Andarial is still alive")
 
-        if (CheckHealth(d2bitmap, [[40, A_EmergencyRestart]])) {
-            global s_A_Heal_Concerns
-            s_A_Heal_Concerns.Hero += 1
+        if (CheckHealth(d2bitmap, [
+            [0, () => StopScript("Hero is dead", false, true)],
+            [40, nil],
+        ])) {
+            global s_A_Health_Problem
+            s_A_Health_Problem.Hero += 1
             emergency_restart := true
             break
         }
@@ -79,6 +84,9 @@ A_TeleportToAndarialAndKill() {
         A_EmergencyRestart()
     } else if (is_boss_alive) {
         LogWarning("Couldn't kill boss in 10 seconds")
+        global s_A_Long_Fight
+        s_A_Long_Fight += 1
+        A_EmergencyRestart()
     } else {
         dur := A_TickCount - start_tick
         LogVerbose("Killed boss in " (dur // 1000) "." Format("{:03u}", Mod(dur, 1000)) " seconds")
