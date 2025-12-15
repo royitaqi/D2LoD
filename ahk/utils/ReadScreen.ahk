@@ -58,6 +58,10 @@ SaveD2Bitmap(d2bitmap, file) {
     Gdip_SaveBitmapToFile(d2bitmap.val, file)
 }
 
+LoadD2Bitmap(file) {
+    return D2Bitmap(Gdip_CreateBitmapFromFile(file))
+}
+
 ARGB2RGB(argb, &r, &g, &b)
 {
     r := Gdip_RFromARGB(argb)
@@ -382,4 +386,91 @@ DetectColorCallback(bitmap_config, color1 := 0, variation1 := 0, color2 := 0, va
         return ret
     }
     return callback
+}
+
+/*
+    Dump the wanted colors in a rectangle into a bitmap array in the log file.
+    Unwanted colors are all wiped to 0x000000.
+    If no wanted colors are specified, all non-zero colors are treated as wanted.
+*/
+DumpBitmapArray(d2bitmap, x1, y1, x2, y2, colors*) {
+    if (!d2bitmap) {
+        d2bitmap := GetD2Bitmap()
+    }
+
+    s := '`n'
+    s .= "bitmap_array := {`n"
+    s .= "    x1: " x1 ",`n"
+    s .= "    y1: " y1 ",`n"
+    s .= "    x2: " x2 ",`n"
+    s .= "    y2: " y2 ",`n"
+    s .= "    array: [`n"
+    y := y1
+    while (y <= y2) {
+        s := s "        ["
+        x := x1
+        while (x <= x2) {
+            color := GetPixelColorInRGB(d2bitmap, x, y)
+
+            is_wanted := false
+            if (colors.Length > 0) {
+                for _, c in colors {
+                    if (color == c) {
+                        is_wanted := true
+                        break
+                    }
+                }
+            } else {
+                is_wanted := color
+            }
+
+            if (is_wanted) {
+                ARGB2RGB(color, &r, &g, &b)
+                hex := RGB2Hex(r, g, b)
+                color := "0x" hex
+            } else {
+                color := "0x000000"
+            }
+            if (x != x1) {
+                s := s ","
+            }
+            s := s color
+            x += 1
+        }
+        s := s "],`n"
+        y += 1
+    }
+    s .= "    ],`n"
+    s .= "}`n"
+    Log(s, ToFile)
+}
+
+/*
+    Confirm if the bitmap array exists in the given image.
+*/
+CheckBitmapArray(d2bitmap, bitmap_array) {
+    if (!d2bitmap) {
+        d2bitmap := GetD2Bitmap()
+    }
+
+    y := bitmap_array.y1
+    i := 1
+    while (y <= bitmap_array.y2) {
+        x := bitmap_array.x1
+        j := 1
+        while (x <= bitmap_array.x2) {
+            array_color := bitmap_array.array[i][j]
+            if (array_color) {
+                pixel_color := GetPixelColorInRGB(d2bitmap, x, y)
+                if (pixel_color != array_color) {
+                    return false
+                }
+            }
+            x += 1
+            j += 1
+        }
+        y += 1
+        i += 1
+    }
+    return true
 }
