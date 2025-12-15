@@ -98,8 +98,8 @@ F9::
     switch s_CurrentMode
     {
     case 1:
-        LogLevelDebug()
-        Log(IsGameLoaded())
+        d2bitmap := LoadD2Bitmap("utils/tests/Test_Andarial2.bmp")
+        DumpBitmapArray(d2bitmap, 505, 19, 569, 46)
         return
     }
     Send "{F9}"
