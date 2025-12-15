@@ -30,7 +30,7 @@
     loop 3 {
         LogVerbose("Attempting to pick up loot")
         detected := PickUpLootOnGround(c_Max_Loot_Level, 1000)
-        LogVerbose("Was loot detected by holding Alt: " detected)
+        LogVerbose("Was loot detected by holding Alt: " (!!detected))
 
         if (detected) {
             transfered_count := TransferLootFromInventoryIntoCube(2, 8, 4, 2, 1, 8)

@@ -230,7 +230,7 @@ LK_DetectLoot(hut_name, gather_loot_func) {
         loop 3 {
             Log("Attempting to pick up loot by Alt + Click")
             detected := PickUpLootOnGround()
-            Log("Was loot detected by holding Alt: " detected)
+            Log("Was loot detected by holding Alt: " (!!detected))
 
             remaining_loot_level := DetectLootInMinimap()
             looted := (remaining_loot_level = 0)
