@@ -10,6 +10,7 @@ Test_Health_CheckHealth() {
         
         detected_hp := -1
         ret := CheckHealth(nil, [
+            [0, () => detected_hp := 0],
             [10, () => detected_hp := 10],
             [20, () => detected_hp := 20],
             [30, () => detected_hp := 30],
@@ -27,12 +28,15 @@ Test_Health_CheckHealth() {
 
     ; Regular HP
     VerifyHealth(-1, 0, "Test_MouseOnLoot.bmp")
-    VerifyHealth(90, 9, "Test_TorchInTextArea2.bmp")
-    VerifyHealth(40, 4, "Test_HealthLow.bmp")
+    VerifyHealth(90, 10, "Test_TorchInTextArea2.bmp")
+    VerifyHealth(40, 5, "Test_HealthLow.bmp")
 
     ; Poinsoned HP
-    VerifyHealth(50, 5, "Test_HealthLowPoisoned.bmp")
+    VerifyHealth(50, 6, "Test_HealthLowPoisoned.bmp")
     VerifyHealth(-1, 0, "Test_HealthPoisoned.bmp")
+
+    ; Dead
+    VerifyHealth(0, 1, "Test_Dead.bmp")
 }
 RunTest(Test_Health_CheckHealth)
 
