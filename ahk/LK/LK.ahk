@@ -141,7 +141,7 @@ LK_Announce() {
     }
     Log(msg)
 
-    if (CheckHealth(nil, [[70, 1]])) {
+    if (CheckHealth(nil, [[70, 1]]) == 70) {
         global s_LK_Potions_Used
         s_LK_Potions_Used := s_LK_Potions_Used + 1
     }
@@ -194,7 +194,7 @@ LK_DetectLoot(hut_name, gather_loot_func) {
     ; Sleep for a bit to allow loot to fall on the ground and be detected.
     Sleep(200)
     d2bitmap := GetD2Bitmap()
-    if (CheckHealth(nil, [[40, LK_EmergencyRestart], [70, 1]])) {
+    if (CheckHealth(nil, [[40, LK_EmergencyRestart], [70, 1]]) < 999) {
         global s_LK_Potions_Used
         s_LK_Potions_Used := s_LK_Potions_Used + 1
         return

@@ -5,47 +5,46 @@
 
 
 Test_Health_CheckHealth() {
-    VerifyHealth(expected_hp, expected_index, test_image_file) {
+    VerifyHealth(expected_hp, test_image_file) {
         MockD2Bitmaps(test_image_file)
         
-        detected_hp := -1
-        ret := CheckHealth(nil, [
-            [0, () => detected_hp := 0],
-            [10, () => detected_hp := 10],
-            [20, () => detected_hp := 20],
-            [30, () => detected_hp := 30],
-            [40, () => detected_hp := 40],
-            [50, () => detected_hp := 50],
-            [60, () => detected_hp := 60],
-            [70, () => detected_hp := 70],
-            [80, () => detected_hp := 80],
-            [90, () => detected_hp := 90],
-            [100, () => detected_hp := 100],
+        detected_hp := CheckHealth(nil, [
+            [0, () => nil],
+            [10, () => nil],
+            [20, () => nil],
+            [30, () => nil],
+            [40, () => nil],
+            [50, () => nil],
+            [60, () => nil],
+            [70, () => nil],
+            [80, () => nil],
+            [90, () => nil],
+            [100, () => nil],
         ])
         AssertEqual(detected_hp, expected_hp, "Should detect the correct HP for " test_image_file)
-        AssertEqual(ret, expected_index, "Should return the correct strategy index for " test_image_file)
     }
 
     ; Regular HP
-    VerifyHealth(-1, 0, "Test_PurpleRing.bmp")
-    VerifyHealth(100, 11, "Test_Health90%.bmp")
-    VerifyHealth(90, 10, "Test_Health80%.bmp")
-    VerifyHealth(80, 9, "Test_Health70%.bmp")
-    VerifyHealth(70, 8, "Test_Health60%.bmp")
-    VerifyHealth(60, 7, "Test_Health50%.bmp")
-    VerifyHealth(50, 6, "Test_Health40%.bmp")
-    VerifyHealth(40, 5, "Test_Health30%.bmp")
-    VerifyHealth(30, 4, "Test_Health20%.bmp")
-    VerifyHealth(20, 3, "Test_Health10%.bmp")
-    VerifyHealth(10, 2, "Test_Health5%.bmp")
+    VerifyHealth(999, "Test_PurpleRing.bmp")
+    VerifyHealth(100, "Test_Health90%.bmp")
+    VerifyHealth(90,  "Test_Health80%.bmp")
+    VerifyHealth(80, "Test_Health70%.bmp")
+    VerifyHealth(70, "Test_Health60%.bmp")
+    VerifyHealth(60, "Test_Health50%.bmp")
+    VerifyHealth(50, "Test_Health40%.bmp")
+    VerifyHealth(40, "Test_Health30%.bmp")
+    VerifyHealth(30, "Test_Health20%.bmp")
+    VerifyHealth(20, "Test_Health10%.bmp")
+    VerifyHealth(10, "Test_Health5%.bmp")
 
     ; Poinsoned HP
-    VerifyHealth(50, 6, "Test_HealthLowPoisoned.bmp")
-    VerifyHealth(-1, 0, "Test_HealthPoisoned.bmp")
+    VerifyHealth(999, "Test_HealthPoisoned.bmp")
+    VerifyHealth(80, "Test_HealthPoisoned73%.bmp")
+    VerifyHealth(50, "Test_HealthLowPoisoned.bmp")
 
     ; Dead
-    VerifyHealth(0, 1, "Test_Health1.bmp")  ; Nearly dead
-    VerifyHealth(0, 1, "Test_Dead.bmp")     ; Actually dead
+    VerifyHealth(0, "Test_Health1.bmp")  ; Nearly dead
+    VerifyHealth(0, "Test_Dead.bmp")     ; Actually dead
 }
 RunTest(Test_Health_CheckHealth)
 

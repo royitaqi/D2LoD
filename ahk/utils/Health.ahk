@@ -7,7 +7,7 @@
     - [2] Action. If it's a number (1-4), it indicates which potion to use (1-4). If it's a function, it will be invoked.
     Note: The percentages will be checked in order. Lower health percentage pairs should always be put in front of higher health percentage pairs.
 
-    Finds the first percentage that is NOT met. Takes the corresponding action and returns the index (start from 1; or 0 if no action is taken).
+    Finds the first percentage that is NOT met. Takes the corresponding action and returns the percentage. If all percentages are met, return 999.
 */
 CheckHealth(d2bitmap, strategy) {
     if (!d2bitmap) {
@@ -69,10 +69,10 @@ CheckHealth(d2bitmap, strategy) {
             else {
                 Log(msg " No action taken.")
             }
-            return i
+            return percentage
         }
 
         i := i + 1
     }
-    return 0
+    return 999
 }

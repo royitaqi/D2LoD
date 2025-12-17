@@ -39,7 +39,7 @@ A_PickUpLoot() {
             break
         }
 
-        if (CheckHealth(nil, [[40, nil]])) {
+        if (CheckHealth(nil, [[40, nil]]) == 40) {
             global s_A_Health_Problem
             s_A_Health_Problem.Hero += 1
             break

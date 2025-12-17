@@ -50,7 +50,7 @@ A_HealAndEnterWaypoint() {
     d2bitmap := GetD2Bitmap()
 
     ; Double check health should be full
-    if (!A_PassCheckpoint("h", CheckHealth(d2bitmap, [[100, () => nil]]) == 0)) {
+    if (!A_PassCheckpoint("h", CheckHealth(d2bitmap, [[100, () => nil]]) == 999)) {
         A_EmergencyRestart()
         return
     }

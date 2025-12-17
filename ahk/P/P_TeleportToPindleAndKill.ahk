@@ -31,7 +31,7 @@ P_TeleportToPindleAndKill() {
 
         Sleep(1000)
 
-        if (CheckHealth(nil, [[40, P_EmergencyRestart]])) {
+        if (CheckHealth(nil, [[40, P_EmergencyRestart]]) == 40) {
             global s_P_Potions_Used
             s_P_Potions_Used := s_P_Potions_Used + 1
             emergency_restart := true
