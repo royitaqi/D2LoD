@@ -28,18 +28,19 @@ CheckHealth(d2bitmap, strategy) {
         The cursor is at X=70 Y=585 - 0%    - The color at X=70 Y=590 is 0x080404 vs. 0x101010
     */
     pixels := Map(
-        110, Map("Y", 502, "Color", 0x5C0000, "PoisonedColor", 0x18480C, "EmptyColor", 0x000000), ; For test purpose only
-        100, Map("Y", 508, "Color", 0x380804, "PoisonedColor", 0x18480C, "EmptyColor", 0x000000),
-        90,  Map("Y", 518, "Color", 0x5C0000, "PoisonedColor", 0x18480C, "EmptyColor", 0x000000),
-        80,  Map("Y", 526, "Color", 0x5C0000, "PoisonedColor", 0x18480C, "EmptyColor", 0x000000),
-        70,  Map("Y", 534, "Color", 0x5C0000, "PoisonedColor", 0x18480C, "EmptyColor", 0x000000),
-        60,  Map("Y", 542, "Color", 0x5C0000, "PoisonedColor", 0x18480C, "EmptyColor", 0x000000),
-        50,  Map("Y", 550, "Color", 0x5C0000, "PoisonedColor", 0x18480C, "EmptyColor", 0x000000),
-        40,  Map("Y", 558, "Color", 0x5C0000, "PoisonedColor", 0x18480C, "EmptyColor", 0x000000),
-        30,  Map("Y", 566, "Color", 0x5C0000, "PoisonedColor", 0x042410, "EmptyColor", 0x000000),
-        20,  Map("Y", 574, "Color", 0x240000, "PoisonedColor", 0x042410, "EmptyColor", 0x000000),
-        10,  Map("Y", 582, "Color", 0x080404, "PoisonedColor", 0x040404, "EmptyColor", 0x101010),
+        110, Map("Y", 507, "Color", 0x000000, "PoisonedColor", 0x000000, "EmptyColor", 0x000000), ; For test purpose only
+        100, Map("Y", 508, "Color", 0x380804, "PoisonedColor", 0x18480C, "EmptyColor", 0x171612),
+        90,  Map("Y", 516, "Color", 0x5C0000, "PoisonedColor", 0x18480C, "EmptyColor", 0x140E0A),
+        80,  Map("Y", 523, "Color", 0x5C0000, "PoisonedColor", 0x18480C, "EmptyColor", 0x0D0B05),
+        70,  Map("Y", 531, "Color", 0x5C0000, "PoisonedColor", 0x18480C, "EmptyColor", 0x090603),
+        60,  Map("Y", 539, "Color", 0x5C0000, "PoisonedColor", 0x18480C, "EmptyColor", 0x0B0805),
+        50,  Map("Y", 547, "Color", 0x5C0000, "PoisonedColor", 0x18480C, "EmptyColor", 0x060402),
+        40,  Map("Y", 555, "Color", 0x5C0000, "PoisonedColor", 0x18480C, "EmptyColor", 0x303030),
+        30,  Map("Y", 563, "Color", 0x5C0000, "PoisonedColor", 0x18480C, "EmptyColor", 0x34383C),
+        20,  Map("Y", 571, "Color", 0x480C04, "PoisonedColor", 0x042410, "EmptyColor", 0x34383C),
+        10,  Map("Y", 579, "Color", 0x100400, "PoisonedColor", 0x080404, "EmptyColor", 0x202020),
         0,   Map("Y", 585, "Color", 0x080404, "PoisonedColor", 0x040404, "EmptyColor", 0x101010),
+        -1,  Map("Y", 586, "Color", 0x040404, "PoisonedColor", 0x040404, "EmptyColor", 0x040404),
     )
     
     for i, pair in strategy {

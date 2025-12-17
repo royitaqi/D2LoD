@@ -27,16 +27,25 @@ Test_Health_CheckHealth() {
     }
 
     ; Regular HP
-    VerifyHealth(-1, 0, "Test_MouseOnLoot.bmp")
-    VerifyHealth(90, 10, "Test_TorchInTextArea2.bmp")
-    VerifyHealth(40, 5, "Test_HealthLow.bmp")
+    VerifyHealth(-1, 0, "Test_PurpleRing.bmp")
+    VerifyHealth(100, 11, "Test_Health90%.bmp")
+    VerifyHealth(90, 10, "Test_Health80%.bmp")
+    VerifyHealth(80, 9, "Test_Health70%.bmp")
+    VerifyHealth(70, 8, "Test_Health60%.bmp")
+    VerifyHealth(60, 7, "Test_Health50%.bmp")
+    VerifyHealth(50, 6, "Test_Health40%.bmp")
+    VerifyHealth(40, 5, "Test_Health30%.bmp")
+    VerifyHealth(30, 4, "Test_Health20%.bmp")
+    VerifyHealth(20, 3, "Test_Health10%.bmp")
+    VerifyHealth(10, 2, "Test_Health5%.bmp")
 
     ; Poinsoned HP
     VerifyHealth(50, 6, "Test_HealthLowPoisoned.bmp")
     VerifyHealth(-1, 0, "Test_HealthPoisoned.bmp")
 
     ; Dead
-    VerifyHealth(0, 1, "Test_Dead.bmp")
+    VerifyHealth(0, 1, "Test_Health1.bmp")  ; Nearly dead
+    VerifyHealth(0, 1, "Test_Dead.bmp")     ; Actually dead
 }
 RunTest(Test_Health_CheckHealth)
 
