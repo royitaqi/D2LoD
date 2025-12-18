@@ -24,6 +24,7 @@
 12/03 20:36:51#02:55:41 P_17 CIF     Runs: 11270 |   P: 38=>38-0   H: 2   T: 0   R: 0   // On laptop
 12/07          00:24:58 P_17 DID     Runs: 18319 |   P: 50=>50-0   H: 5   T: 0   R: 2   // On laptop
 12/14          01:00:55 P_19 CIF     Runs: 15220 |   P: 18=>18-0   H: 4   Hi: 8   T: 13   R: 4     // On laptop. Restarts: FRH FRH FRH FRH
+12/18          01:27:48 P_22 CIF     Runs: 12026 |   P: 17=>17-0   H: 1   Hi: 0   T: 0   R: 0      // On laptop.
 
 - = D1-(D2)
 + = D1-D2+D3
