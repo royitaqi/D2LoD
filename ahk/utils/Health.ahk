@@ -60,14 +60,14 @@ CheckHealth(d2bitmap, strategy) {
             msg := "Health is lower than " percentage "%."
             if (IsInteger(action)) {
                 Press("" action "")
-                Log(msg " Potion [" action "] used.")
+                LogVerbose(msg " Potion [" action "] used.")
             }
             else if (IsFunction(action)) {
                 action.Call()
-                Log(msg " Action [" action.Name "] taken.")
+                LogVerbose(msg " Action [" action.Name "] taken.")
             }
             else {
-                Log(msg " No action taken.")
+                LogVerbose(msg " No action taken.")
             }
             return percentage
         }

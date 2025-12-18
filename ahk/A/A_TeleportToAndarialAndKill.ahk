@@ -53,7 +53,7 @@ A_TeleportToAndarialAndKill() {
         Sleep 400
         first_round := false
 
-        d2bitmap := GetD2Bitmap(TempFile("ScreenShot_A_after_attacks.bmp"))
+        d2bitmap := GetD2Bitmap(TempFileOverwrite("ScreenShot_A_after_attacks.bmp"))
 
         ; Check if Andarial is dead or not
         ; > 892 162
@@ -65,10 +65,25 @@ A_TeleportToAndarialAndKill() {
         }
         LogVerbose("Andarial is still alive")
 
-        if (CheckHealth(d2bitmap, [
-            [0, () => StopScript("Hero is dead", false, true)],
+        health := CheckHealth(d2bitmap, [
+            [0, nil],
+            [10, nil],
+            [20, nil],
+            [30, nil],
             [40, nil],
-        ])) {
+            [50, nil],
+            [60, nil],
+            [70, nil],
+            [80, nil],
+            [90, nil],
+            [100, nil],
+        ])
+        if (health == 0) {
+            ; HP is 0
+            LogImportant("Hero is dead", ToFile)
+            StopScript(nil, false, true)
+        } else if (health <= 40) {
+            ; HP below 40%
             global s_A_Health_Problem
             s_A_Health_Problem.Hero += 1
             emergency_restart := true
