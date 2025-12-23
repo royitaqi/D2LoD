@@ -117,7 +117,7 @@ CountDown(msg) {
 }
 
 TempFile(file) {
-    return "tmp/" FormatTime(A_Now, "HHmmss") "_" file
+    return "tmp/" FormatTime(A_Now, "YYYYMMDD_HHmmss") "_" file
 }
 
 TempFileOverwrite(file) {
